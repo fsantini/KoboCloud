@@ -1,0 +1,25 @@
+#The following is assuming you have a ubuntu/debian linux installation:
+
+# Install the cross-compiler
+sudo apt-get install gcc-arm-linux-gnueabi
+
+# uncompress the sources
+tar -xvzf openssl-1.0.1f.tar.gz
+cd openssl-1.0.1f
+export CROSS=arm-linux-gnueabi
+export CC=${CROSS}-gcc
+export LD=${CROSS}-ld
+export AS=${CROSS}-as
+export AR=${CROSS}-ar
+./Configure -DOPENSSL_NO_HEARTBEATS no-shared os/compiler:arm-linux-gnueabi
+make
+mkdir lib
+mv libssl.a libcrypto.a lib
+cd ..
+
+tar -xvzf curl-7.35.0.tar.gz
+cd curl-7.35.0
+# change configure to disable clock_gettime (not available in kobo glibc)
+./configure --host=arm-linux-gnueabi --enable-shared=no --with-ssl=/home/francesco/src/openssl-1.0.1f
+# change lib/curl_config.h is changed to disable poll
+make
