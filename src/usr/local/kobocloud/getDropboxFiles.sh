@@ -9,7 +9,7 @@ source `dirname $0`/config.sh
 # get directory listing
 echo "Getting $baseURL"
 # get directory listing
-$CURL -k --silent "$baseURL" | # get listing
+$CURL -k -L --silent "$baseURL" | # get listing
 grep -o '<a href="[^"]*"[^>]*class="thumb-link [^"]*">' | # find links
 sed -e 's/.*href="\([^"]*\)".*/\1/' | # extract links and replace ampersands
 while read linkLine
