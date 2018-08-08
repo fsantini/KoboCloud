@@ -8,7 +8,7 @@ source `dirname $0`/config.sh
 
 echo "$linkLine -> $localFile"
 
-remoteSize=`$CURL -k -L --silent --head "$linkLine" | sed -n 's/^Content-Length\: \([0-9]*\).*/\1/p'`
+remoteSize=`$CURL -k -L --silent --head "$linkLine" | sed -n 's/^Content-Length\: \([0-9]*\).*/\1/ip'`
 if [ -f $localFile ]; then
   localSize=`stat -c%s "$localFile"`
 else
