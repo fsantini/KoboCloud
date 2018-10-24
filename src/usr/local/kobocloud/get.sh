@@ -2,7 +2,7 @@
 #Kobocloud getter
 
 #load config
-source `dirname $0`/config.sh
+. `dirname $0`/config.sh
 
 #check internet connection
 echo "`$Dt` waiting for internet connection"

@@ -1,7 +1,9 @@
-#!/bin/sh
-Logs=/mnt/onboard/.kobo/kobocloud
-Lib=/mnt/onboard/.kobo/kobocloud/Library
-SD=/mnt/sd/kobocloud
-UserConfig=/mnt/onboard/.kobo/kobocloud/kobocloudrc
-Dt="date +%Y-%m-%d_%H:%M:%S"
-CURL=`dirname $0`/curl
+#!/bin/bash
+
+if uname -a | grep -q x86
+then
+    #echo "PC detected"
+    . `dirname $0`/config_pc.sh
+else
+    . `dirname $0`/config_kobo.sh
+fi

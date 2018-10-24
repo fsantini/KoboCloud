@@ -4,17 +4,25 @@ baseURL="$1"
 outDir="$2"
 
 #load config
-source `dirname $0`/config.sh
+. `dirname $0`/config.sh
+
+# webdav implementation
+# https://myserver.com/s/shareLink
+
+shareID=`echo $baseURL | sed -e 's@.*s/\([^/ ]*\)$@\1@'`
+davServer=`echo $baseURL | sed -e 's@.*\(http.*\)/s/[^/ ]*$@\1@'`
+
+echo $shareID
+echo $davServer
 
 # get directory listing
-$CURL -k -L --silent "$baseURL" | # get listing
-grep '<a class="name" href=' | # find links
-sed -e 's/.*href="\([^"]*\)".*/\1/' -e 's/&amp;/\&/g' | # extract links and replace ampersands
-while read linkLine
+`dirname $0`/getOwncloudList.sh $shareID $davServer |
+while read relativeLink
 do
   # process line 
-  outFileName=`echo $linkLine | sed 's|.*path=/*\(.*\)|\1|'`
+  outFileName=`basename $relativeLink`
+  linkLine=$davServer/$relativeLink
   localFile="$outDir/$outFileName"
   # get remote file
-  `dirname $0`/getRemoteFile.sh "$linkLine" "$localFile"
+  `dirname $0`/getRemoteFile.sh "$linkLine" "$localFile" $shareID
 done

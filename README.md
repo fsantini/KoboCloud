@@ -26,3 +26,4 @@ KoboCloud keeps a log of each session in the .kobo/kobocloud/get.log file. If so
 
 ## Acknowledgment
 Thanks to the defunct SendToKobo service for the inspiration of the project and for the basis of the scripts.
+Curl for Kobo was downloaded from here: https://www.mobileread.com/forums/showthread.php?p=3734553

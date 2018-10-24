@@ -4,7 +4,7 @@ baseURL="$1"
 outDir="$2"
 
 #load config
-source `dirname $0`/config.sh
+. `dirname $0`/config.sh
 
 # get directory listing
 echo "Getting $baseURL"

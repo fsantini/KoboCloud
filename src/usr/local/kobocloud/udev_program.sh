@@ -5,7 +5,7 @@ if [ "$ACTION" != "add" ]; then
 fi
 
 #load config
-source `dirname $0`/config.sh
+. `dirname $0`/config.sh
 
 #create work dirs
 [ ! -e "$Logs" ] && mkdir -p "$Logs" >/dev/null 2>&1

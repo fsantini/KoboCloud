@@ -2,13 +2,23 @@
 
 linkLine="$1"
 localFile="$2"
+user="$3"    
 
 #load config
-source `dirname $0`/config.sh
+. `dirname $0`/config.sh
 
+
+if [ "$user" = "" ]; then
+    curlCommand=$CURL
+else
+    curlCommand="$CURL -u $user: "
+fi
+    
+echo $curlCommand
+    
 echo "$linkLine -> $localFile"
 
-remoteSize=`$CURL -k -L --silent --head "$linkLine" | sed -n 's/^Content-Length\: \([0-9]*\).*/\1/ip'`
+remoteSize=`$curlCommand -k -L --silent --head "$linkLine" | sed -n 's/^Content-Length\: \([0-9]*\).*/\1/ip'`
 if [ -f $localFile ]; then
   localSize=`stat -c%s "$localFile"`
 else
@@ -17,9 +27,9 @@ fi
 if [ $localSize -ge $remoteSize ]; then
   echo "File exists: skipping"
 else
-  $CURL -k --silent -C - -L -o "$localFile" "$linkLine" # try resuming
+  $curlCommand -k --silent -C - -L -o "$localFile" "$linkLine" # try resuming
   if [ $? -ne 0 ]; then
     echo "Error resuming: redownload file"
-    $CURL -k --silent -L -o "$localFile" "$linkLine" # restart download
+    $curlCommand -k --silent -L -o "$localFile" "$linkLine" # restart download
   fi
 fi

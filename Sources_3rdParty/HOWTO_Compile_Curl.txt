@@ -11,7 +11,8 @@ export CC=${CROSS}-gcc
 export LD=${CROSS}-ld
 export AS=${CROSS}-as
 export AR=${CROSS}-ar
-./Configure -DOPENSSL_NO_HEARTBEATS no-shared os/compiler:arm-linux-gnueabi
+./Configure -DOPENSSL_NO_HEARTBEATS no-shared os/compiler:arm-linux-gnueabi -march=armv7
+NEW Openssl: ./Configure linux-armv4 no-heartbeats no-shared
 make
 mkdir lib
 mv libssl.a libcrypto.a lib
