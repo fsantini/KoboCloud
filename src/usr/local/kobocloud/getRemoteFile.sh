@@ -14,11 +14,12 @@ else
     curlCommand="$CURL -u $user: "
 fi
     
-echo $curlCommand
+#echo $curlCommand
     
 echo "$linkLine -> $localFile"
 
-remoteSize=`$curlCommand -k -L --silent --head "$linkLine" | sed -n 's/^Content-Length\: \([0-9]*\).*/\1/ip'`
+remoteSize=`$curlCommand -k -L --silent --head "$linkLine" | tr A-Z a-z | sed -n 's/^content-length\: \([0-9]*\).*/\1/p'`
+echo "Remote size: $remoteSize"
 if [ -f $localFile ]; then
   localSize=`stat -c%s "$localFile"`
 else
@@ -33,3 +34,4 @@ else
     $curlCommand -k --silent -L -o "$localFile" "$linkLine" # restart download
   fi
 fi
+echo "getRemoteFile ended"

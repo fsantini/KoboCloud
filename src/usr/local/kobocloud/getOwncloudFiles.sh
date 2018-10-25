@@ -10,7 +10,7 @@ outDir="$2"
 # https://myserver.com/s/shareLink
 
 shareID=`echo $baseURL | sed -e 's@.*s/\([^/ ]*\)$@\1@'`
-davServer=`echo $baseURL | sed -e 's@.*\(http.*\)/s/[^/ ]*$@\1@'`
+davServer=`echo $baseURL | sed -e 's@.*\(http.*\)/s/[^/ ]*$@\1@' -e 's@/index\.php@@'`
 
 echo $shareID
 echo $davServer
