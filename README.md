@@ -17,6 +17,10 @@ To add a Dropbox link, open your dropbox in a browser. Select the folder that yo
 ## Usage
 The new files will be downloaded when the kobo connects to the Internet for a sync.
 
+## Uninstallation
+To properly uninstall KoboCloud, edit the kobocloudrc file so that it contains the word `UNINSTALL` in a single line (all capital, no spaces before or after). Restart your Kobo. The next time the Kobo is connected to the Internet, the program will delete itself.
+The directory .kobo/kobocloud will not be deleted: after connecting the ereader to a computer, you should move the files from the Library subfolder in order not to lose your content, and delete the whole kobocloud directory manually.
+
 ## Troubleshooting
 KoboCloud keeps a log of each session in the .kobo/kobocloud/get.log file. If something goes wrong, useful information can be found there. Please send a copy of this file with every bug report.
 

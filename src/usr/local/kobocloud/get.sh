@@ -4,6 +4,13 @@
 #load config
 . `dirname $0`/config.sh
 
+#check if Kobocloud contains the line "UNINSTALL"
+if grep -q '^UNINSTALL$' $UserConfig; then
+    echo "Uninstalling KoboCloud!"
+    `dirname $0`/uninstall.sh
+    exit 0
+fi
+
 #check internet connection
 echo "`$Dt` waiting for internet connection"
 r=1;i=0
