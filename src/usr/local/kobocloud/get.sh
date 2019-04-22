@@ -34,6 +34,8 @@ while read url; do
     echo "Getting $url"
     if echo $url | grep -q '^https*://www.dropbox.com'; then # dropbox link?
       `dirname $0`/getDropboxFiles.sh "$url" "$Lib"
+    elif echo $url | grep -q '^https*://filedn.com'; then
+      `dirname $0`/getpCloudFiles.sh "$url" "$Lib"
     else
       `dirname $0`/getOwncloudFiles.sh "$url" "$Lib"
     fi

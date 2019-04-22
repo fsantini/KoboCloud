@@ -15,6 +15,9 @@ Please note that you need a recent Nextcloud version. Owncloud is at the moment 
 ### Dropbox
 To add a Dropbox link, open your dropbox in a browser. Select the folder that you want to share and click "Share" and "Send link". Copy the link that appears into the kobocloudrc file.
 
+### pCloud
+Files added into a subfolder of the *public* folder of pCloud are also supported. Add the public link to the containing folder (starting with https://filedn.com/) to the kobocloudrc file.
+
 ### Restart
 Restart your Kobo after making changes to kobocloudrc to make them effective.
 
