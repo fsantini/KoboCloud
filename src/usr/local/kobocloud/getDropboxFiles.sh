@@ -6,6 +6,8 @@ outDir="$2"
 #load config
 . `dirname $0`/config.sh
 
+baseURL=`echo "$baseURL" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//'`
+
 # get directory listing
 echo "Getting $baseURL"
 # get directory listing
