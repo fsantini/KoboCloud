@@ -36,6 +36,8 @@ while read url; do
       `dirname $0`/getDropboxFiles.sh "$url" "$Lib"
     elif echo $url | grep -q '^https*://filedn.com'; then
       `dirname $0`/getpCloudFiles.sh "$url" "$Lib"
+    elif echo $url | grep -q '^https*://drive.google.com'; then
+      `dirname $0`/getGDriveFiles.sh "$url" "$Lib"
     else
       `dirname $0`/getOwncloudFiles.sh "$url" "$Lib"
     fi
