@@ -26,7 +26,7 @@ else
   localSize=0
 fi
 if [ "$remoteSize" = "" ]; then
-  remoteSize=0
+  remoteSize=1
 fi
 if [ $localSize -ge $remoteSize ]; then
   echo "File exists: skipping"

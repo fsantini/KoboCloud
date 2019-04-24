@@ -19,7 +19,7 @@ grep -Eo "\\\x5b\\\x22[^\\\]*\\\x22,\\\x5b\\\x22$gDirCode\\\x22\\\x5d\\\n,\\\x22
 while read fileInfo
 do
     echo $fileInfo
-    fileCode=`echo $fileInfo | sed -n 's/x5bx22\([a-zA-Z0-9]*\)x22,.*/\1/p'` # extract the code for file download (this is how a file is identified in GDrive)
+    fileCode=`echo $fileInfo | sed -n 's/x5bx22\([^\\\]*\)x22,.*/\1/p'` # extract the code for file download (this is how a file is identified in GDrive)
     fileName=`echo $fileInfo | sed -n 's/.*x22\(.*\)$/\1/p'` # extract the file name
     echo $fileCode
     echo $fileName
