@@ -20,7 +20,7 @@ while [ $r != 0 ]; do
     echo "`$Dt` error! no connection detected" 
     exit 1
   fi
-  ping -c 1 -w 3 dropbox.com >/dev/null 2>&1
+  ping -c 1 -w 3 aws.amazon.com >/dev/null 2>&1
   r=$?
   if [ $r != 0 ]; then sleep 1; fi
   i=$(($i + 1))
