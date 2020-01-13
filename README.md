@@ -36,6 +36,11 @@ KoboCloud keeps a log of each session in the .kobo/kobocloud/get.log file. If so
 
 ## Known issues
 * No subdirectories are supported
+* Some versions of Kobo make the same book appear twice in the library. This is because it scans the internal directory where the files are saved as well as the "official" folders. To solve this problem find the `Kobo eReader.conf`file inside your `.kobo` folder and add the the following line in the `[FeatureSettings]` section:
+```
+  ExcludeSyncFolders=Library
+```
+
 
 ## Acknowledgment
 Thanks to the defunct SendToKobo service for the inspiration of the project and for the basis of the scripts.
