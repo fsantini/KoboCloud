@@ -1,7 +1,7 @@
 #!/bin/sh
-Logs=/mnt/onboard/.adds/kobocloud
-Lib=/mnt/onboard/.adds/kobocloud/Library
+Logs=/mnt/onboard/.add/kobocloud
+Lib=/mnt/onboard/.add/kobocloud/Library
 SD=/mnt/sd/kobocloud
-UserConfig=/mnt/onboard/.adds/kobocloud/kobocloudrc
+UserConfig=/mnt/onboard/.add/kobocloud/kobocloudrc
 Dt="date +%Y-%m-%d_%H:%M:%S"
 CURL="`dirname $0`/curl --cacert \"`dirname $0`/ca-bundle.crt\" "
