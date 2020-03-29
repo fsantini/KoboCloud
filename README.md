@@ -5,7 +5,7 @@ A set of scripts to synchronize a kobo reader with popular cloud services. At th
 Run the script makeKoboRoot.sh . This will create a KoboRoot.tgz archive. Copy said archive in the .kobo directory of your reader (it is a hidden directory, so you might want to enable the visualization of hidden files) and restart your Kobo.
 
 ## Configuration
-After restarting, plug your kobo back into the computer. Navigate to the .kobo directory. A new kobocloud directory should have appeared. Inside, edit the file kobocloudrc to add the links to the cloud services (one per line).
+After restarting, plug your kobo back into the computer. Navigate to the .adds directory. A new kobocloud directory should have appeared. Inside, edit the file kobocloudrc to add the links to the cloud services (one per line).
 Notice: No subdirectories are supported at the moment, so be sure that your books are all in the same directories that you are sharing. **Important:** make sure that there are no spaces before or after the link on the line.
 
 ### Nextcloud (Owncloud)
@@ -29,13 +29,18 @@ The new files will be downloaded when the kobo connects to the Internet for a sy
 
 ## Uninstallation
 To properly uninstall KoboCloud, edit the kobocloudrc file so that it contains the word `UNINSTALL` in a single line (all capital, no spaces before or after). Restart your Kobo. The next time the Kobo is connected to the Internet, the program will delete itself.
-The directory .kobo/kobocloud will not be deleted: after connecting the ereader to a computer, you should move the files from the Library subfolder in order not to lose your content, and delete the whole kobocloud directory manually.
+The directory .adds/kobocloud will not be deleted: after connecting the ereader to a computer, you should move the files from the Library subfolder in order not to lose your content, and delete the whole kobocloud directory manually.
 
 ## Troubleshooting
-KoboCloud keeps a log of each session in the .kobo/kobocloud/get.log file. If something goes wrong, useful information can be found there. Please send a copy of this file with every bug report.
+KoboCloud keeps a log of each session in the .adds/kobocloud/get.log file. If something goes wrong, useful information can be found there. Please send a copy of this file with every bug report.
 
 ## Known issues
 * No subdirectories are supported
+* Some versions of Kobo make the same book appear twice in the library. This is because it scans the internal directory where the files are saved as well as the "official" folders. To solve this problem find the `Kobo eReader.conf` file inside your `.kobo` folder and make sure the following line (which prevents the syncing of dotfiles and dotfolders) is set in the `[FeatureSettings]` section:
+```
+  ExcludeSyncFolders=\\.(?!kobo|adobe).*?
+```
+
 
 ## Acknowledgment
 Thanks to the defunct SendToKobo service for the inspiration of the project and for the basis of the scripts.
