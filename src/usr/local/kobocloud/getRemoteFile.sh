@@ -2,24 +2,45 @@
 
 linkLine="$1"
 localFile="$2"
-user="$3"    
+user="$3"
+remoteInfo="/tmp/.kobocloud-remote-file-info.txt"
 
 #load config
 . `dirname $0`/config.sh
 
-
-if [ "$user" = "" ]; then
-    curlCommand=$CURL
-else
-    curlCommand="$CURL -u $user: "
+curlCommand="$CURL"
+if [ ! -z "$user" ]; then
+    echo "User: $user"
+    curlCommand="$curlCommand -u $user: "
 fi
-    
-#echo $curlCommand
-    
-echo "$linkLine -> $localFile"
 
-remoteSize=`$curlCommand -k -L --silent --head "$linkLine" | tr A-Z a-z | sed -n 's/^content-length\: \([0-9]*\).*/\1/p'`
-echo "Remote size: $remoteSize"
+if [ ! -z "$UserAgent" ]; then
+    echo "Using custom userAgent: $UserAgent"
+    curlCommand="$curlCommand -A '$UserAgent' "
+fi
+
+curlHead="$curlCommand -k -L --silent --head $linkLine"
+echo "Getting remote file information:"
+echo "  Command: '$curlHead'"
+$curlHead > $remoteInfo
+echo "  Status: $?"
+
+remoteSize=`cat $remoteInfo | tr A-Z a-z | sed -n 's/^content-length\: \([1-9]*\).*/\1/p'`
+statusCode=`cat $remoteInfo | grep 'HTTP/2 ' | tail -n 1 | cut -d' ' -f2`
+echo "Remote file information:"
+echo "  Remote size: $remoteSize"
+echo "  Status code: $statusCode"
+rm "$remoteInfo"
+
+if echo "$statusCode" | grep -q "4**"; then
+    echo "Error: Forbidden"
+    exit 2
+fi
+if echo "$statusCode" | grep -q "5**"; then
+    echo "Error: Server error"
+    exit 3
+fi
+
 if [ -f $localFile ]; then
   localSize=`stat -c%s "$localFile"`
 else

@@ -27,8 +27,8 @@ do
     outFileName=`echo $fileName | tr ' ' '_'`
     localFile="$outDir/$outFileName"
     `dirname $0`/getRemoteFile.sh "$linkLine" "$localFile"
-    if [ "$?" = "2" ]; then
-        echo "Google detected automated requests. Try again in a couple of minutes."
+    if [ $? ] ; then
+        echo "Having problems contacting Google Drive. Try again in a couple of minutes."
         exit
     fi
 done
