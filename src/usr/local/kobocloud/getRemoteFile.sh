@@ -26,7 +26,7 @@ $curlHead > $remoteInfo
 echo "  Status: $?"
 
 remoteSize=`cat $remoteInfo | tr A-Z a-z | sed -n 's/^content-length\: \([1-9]*\).*/\1/p'`
-statusCode=`cat $remoteInfo | grep 'HTTP/2 ' | tail -n 1 | cut -d' ' -f2`
+statusCode=`cat $remoteInfo | grep 'HTTP/' | tail -n 1 | cut -d' ' -f2`
 echo "Remote file information:"
 echo "  Remote size: $remoteSize"
 echo "  Status code: $statusCode"
