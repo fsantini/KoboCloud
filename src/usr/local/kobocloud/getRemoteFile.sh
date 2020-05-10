@@ -32,11 +32,11 @@ echo "  Remote size: $remoteSize"
 echo "  Status code: $statusCode"
 rm "$remoteInfo"
 
-if echo "$statusCode" | grep -q "4**"; then
+if echo "$statusCode" | grep -q "4.*"; then
     echo "Error: Forbidden"
     exit 2
 fi
-if echo "$statusCode" | grep -q "5**"; then
+if echo "$statusCode" | grep -q "5.*"; then
     echo "Error: Server error"
     exit 3
 fi
