@@ -59,12 +59,13 @@ fi
 if [ "$localSize" -ge $remoteSize ]; then
     echo "File exists: skipping"
 else
-    $curlCommand -k --silent -C - -L -o "\"$localFile\"" "$linkLine" # try resuming
+    echo "Download: "$curlCommand -k --silent -C - -L -o "$localFile" "$linkLine" # try resuming
+    $curlCommand -k --silent -C - -L -o "$localFile" "$linkLine" # try resuming
     status=$?
     echo "Status: $?"
     if [ $status -ne 0 ]; then
         echo "Error resuming: redownload file ($status)"
-        $curlCommand -k --silent -L -o "\"$localFile\"" "$linkLine" # restart download
+        $curlCommand -k --silent -L -o "$localFile" "$linkLine" # restart download
         echo "Status: $?"
     fi
 fi
