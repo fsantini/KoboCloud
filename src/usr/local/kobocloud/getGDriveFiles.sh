@@ -26,7 +26,8 @@ do
     linkLine="https://drive.google.com/uc?id=$fileCode&export=download"
     outFileName=`echo $fileName | tr ' ' '_'`
     localFile="$outDir/$outFileName"
-    `dirname $0`/getRemoteFile.sh "$linkLine" "$localFile"
+
+    `dirname $0`/getRemoteFile.sh "$linkLine" "$localFile" "-" "$GdriveCurlExtra"
     if [ $? ] ; then
         echo "Having problems contacting Google Drive. Try again in a couple of minutes."
         exit

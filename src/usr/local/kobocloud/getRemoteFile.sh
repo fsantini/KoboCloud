@@ -3,13 +3,14 @@
 linkLine="$1"
 localFile="$2"
 user="$3"
+extra="$4"
 remoteInfo="/tmp/.kobocloud-remote-file-info.txt"
 
 #load config
 . `dirname $0`/config.sh
 
 curlCommand="$CURL"
-if [ ! -z "$user" ]; then
+if [ ! -z "$user" ] && [ "$user" != "-" ]; then
     echo "User: $user"
     curlCommand="$curlCommand -u $user: "
 fi
@@ -17,6 +18,12 @@ fi
 if [ ! -z "$UserAgent" ]; then
     echo "Using custom userAgent: $UserAgent"
     curlCommand="$curlCommand -A '$UserAgent' "
+fi
+
+curlCommand="$curlCommand $CurlExtra "
+if [ ! -z "$extra" ]; then
+    echo "Adding extra curl arguments: $extra"
+    curlCommand="$curlCommand $extra"
 fi
 
 curlHead="$curlCommand -k -L --silent --head $linkLine"
