@@ -49,7 +49,7 @@ if echo "$statusCode" | grep -q "50.*"; then
 fi
 
 if [ -f "$localFile" ]; then
-    localSize=`stat -c%s "\"$localFile\""`
+    localSize=`stat -c%s "$localFile"`
 else
     localSize=0
 fi

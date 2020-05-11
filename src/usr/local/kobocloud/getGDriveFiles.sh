@@ -28,7 +28,7 @@ do
     localFile="$outDir/$outFileName"
 
     `dirname $0`/getRemoteFile.sh "$linkLine" "$localFile" "-" "$GdriveCurlExtra"
-    if [ $? ] ; then
+    if [ $? -ne 0 ] ; then
         echo "Having problems contacting Google Drive. Try again in a couple of minutes."
         exit
     fi
