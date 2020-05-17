@@ -13,7 +13,6 @@ echo "Getting $baseURL"
 gDirCode=`echo $baseURL | sed 's@.*/\([^/\?]*\).*@\1@'`
 
 echo $gDirCode
-
 $CURL -k -L --silent "$baseURL" |
 grep -Eo "\\\x5b\\\x22[^\\\]*\\\x22,\\\x5b\\\x22$gDirCode\\\x22\\\x5d\\\n,\\\x22[^\\\]*" | # find links
 while read fileInfo
@@ -27,7 +26,7 @@ do
     outFileName=`echo $fileName | tr ' ' '_'`
     localFile="$outDir/$outFileName"
 
-    `dirname $0`/getRemoteFile.sh "$linkLine" "$localFile" "-" "$GdriveCurlExtra"
+    `dirname $0`/getRemoteFile.sh "$linkLine" "$localFile"
     if [ $? -ne 0 ] ; then
         echo "Having problems contacting Google Drive. Try again in a couple of minutes."
         exit
