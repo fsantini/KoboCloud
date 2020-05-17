@@ -30,12 +30,10 @@ echo "  Status code: $statusCode"
 
 if echo "$statusCode" | grep -q "403"; then
     echo "Error: Forbidden"
-    rm $localFile
     exit 2
 fi
 if echo "$statusCode" | grep -q "50.*"; then
     echo "Error: Server error"
-    rm $localFile
     exit 3
 fi
 
