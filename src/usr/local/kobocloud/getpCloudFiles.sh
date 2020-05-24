@@ -23,4 +23,8 @@ do
   #echo $outFileName
   localFile="$outDir/$outFileName"
   `dirname $0`/getRemoteFile.sh "$linkLine" "$localFile"
+  if [ $? -ne 0 ] ; then
+      echo "Having problems contacting Owncloud. Try again in a couple of minutes."
+      exit
+  fi
 done

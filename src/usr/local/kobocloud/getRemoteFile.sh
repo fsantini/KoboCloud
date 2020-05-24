@@ -2,39 +2,39 @@
 
 linkLine="$1"
 localFile="$2"
-user="$3"    
+user="$3"
+outputFileTmp="/tmp/kobo-remote-file-tmp.log"
 
 #load config
 . `dirname $0`/config.sh
 
+curlCommand="$CURL"
+if [ ! -z "$user" ] && [ "$user" != "-" ]; then
+    echo "User: $user"
+    curlCommand="$curlCommand -u $user: "
+fi
 
-if [ "$user" = "" ]; then
-    curlCommand=$CURL
-else
-    curlCommand="$CURL -u $user: "
-fi
-    
-#echo $curlCommand
-    
-echo "$linkLine -> $localFile"
+echo "Download: "$curlCommand -k --silent -C - -L -o "$localFile" "$linkLine" -v
 
-remoteSize=`$curlCommand -k -L --silent --head "$linkLine" | tr A-Z a-z | sed -n 's/^content-length\: \([0-9]*\).*/\1/p'`
-echo "Remote size: $remoteSize"
-if [ -f $localFile ]; then
-  localSize=`stat -c%s "$localFile"`
-else
-  localSize=0
+$curlCommand -k --silent -C - -L -o "$localFile" "$linkLine" -v 2>$outputFileTmp
+status=$?
+echo "Status: $status"
+echo "Output: "
+cat $outputFileTmp
+
+statusCode=`cat $outputFileTmp | grep 'HTTP/' | tail -n 1 | cut -d' ' -f3`
+rm $outputFileTmp
+
+echo "Remote file information:"
+echo "  Status code: $statusCode"
+
+if echo "$statusCode" | grep -q "403"; then
+    echo "Error: Forbidden"
+    exit 2
 fi
-if [ "$remoteSize" = "" ]; then
-  remoteSize=1
+if echo "$statusCode" | grep -q "50.*"; then
+    echo "Error: Server error"
+    exit 3
 fi
-if [ $localSize -ge $remoteSize ]; then
-  echo "File exists: skipping"
-else
-  $curlCommand -k --silent -C - -L -o "$localFile" "$linkLine" # try resuming
-  if [ $? -ne 0 ]; then
-    echo "Error resuming: redownload file"
-    $curlCommand -k --silent -L -o "$localFile" "$linkLine" # restart download
-  fi
-fi
+
 echo "getRemoteFile ended"

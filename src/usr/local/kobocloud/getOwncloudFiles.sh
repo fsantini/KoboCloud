@@ -25,4 +25,8 @@ do
   localFile="$outDir/$outFileName"
   # get remote file
   `dirname $0`/getRemoteFile.sh "$linkLine" "$localFile" $shareID
+  if [ $? -ne 0 ] ; then
+      echo "Having problems contacting Owncloud. Try again in a couple of minutes."
+      exit
+  fi
 done
