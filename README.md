@@ -87,7 +87,7 @@ Please note that you need a recent Nextcloud version. Owncloud is at the moment 
 
 ### pCloud
 
-- Add the public link to the containing folder (starting with https://filedn.com/) to the kobocloudrc file.
+- Add the public link to the containing folder (starting with https://my.pcloud.com/ or https://u.pcloud.link/) to the kobocloudrc file.
 
 Files added into a subfolder of the *public* folder of pCloud are also supported.
 
