@@ -4,7 +4,7 @@ baseURL="$1"
 outDir="$2"
 
 #load config
-. `dirname $0`/config.sh
+. $(dirname $0)/config.sh
 
 baseURL=`echo "$baseURL" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//'`
 
@@ -25,7 +25,7 @@ do
   outFileName=`echo $linkLine | sed -e 's|.*/\(.*\)?dl=.*|\1|'`
   #echo $outFileName
   localFile="$outDir/$outFileName"
-  `dirname $0`/getRemoteFile.sh "$linkLine" "$localFile"
+  $KC_HOME/getRemoteFile.sh "$linkLine" "$localFile"
   if [ $? -ne 0 ] ; then
       echo "Having problems contacting Dropbox. Try again in a couple of minutes."
       exit

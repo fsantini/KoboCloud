@@ -1,6 +1,6 @@
 #!/bin/sh
 #load config
-. `dirname $0`/config.sh
+. $(dirname $0)/config.sh
 
 #create work dirs
 [ ! -e "$Logs" ] && mkdir -p "$Logs" >/dev/null 2>&1

@@ -4,7 +4,7 @@ user="$1"
 davServer="$2"
 
 #load config
-. `dirname $0`/config.sh
+. $(dirname $0)/config.sh
 
 echo '<?xml version="1.0"?>
 <a:propfind xmlns:a="DAV:">

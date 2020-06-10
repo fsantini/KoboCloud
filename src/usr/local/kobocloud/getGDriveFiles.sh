@@ -4,7 +4,7 @@ baseURL="$1"
 outDir="$2"
 
 #load config
-. `dirname $0`/config.sh
+. $(dirname $0)/config.sh
 
 # get directory listing
 echo "Getting $baseURL"
@@ -26,7 +26,7 @@ do
     outFileName=`echo $fileName | tr ' ' '_'`
     localFile="$outDir/$outFileName"
 
-    `dirname $0`/getRemoteFile.sh "$linkLine" "$localFile"
+    $KC_HOME/getRemoteFile.sh "$linkLine" "$localFile"
     if [ $? -ne 0 ] ; then
         echo "Having problems contacting Google Drive. Try again in a couple of minutes."
         exit

@@ -8,7 +8,7 @@ then
 fi
 
 #load config
-. `dirname $0`/config.sh
+. $(dirname $0)/config.sh
 
 #create work dirs
 [ ! -e "$Logs" ] && mkdir -p "$Logs" >/dev/null 2>&1
@@ -16,4 +16,4 @@ fi
 [ ! -e "$SD" ] && mkdir -p "$SD" >/dev/null 2>&1
 
 #output to log
-`dirname $0`/get.sh > $Logs/get.log 2>&1 &
+$KC_HOME/get.sh > $Logs/get.log 2>&1 &

@@ -2,12 +2,12 @@
 #Kobocloud getter
 
 #load config
-. `dirname $0`/config.sh
+. $(dirname $0)/config.sh
 
 #check if Kobocloud contains the line "UNINSTALL"
 if grep -q '^UNINSTALL$' $UserConfig; then
     echo "Uninstalling KoboCloud!"
-    `dirname $0`/uninstall.sh
+    $KC_HOME/uninstall.sh
     exit 0
 fi
 
@@ -33,15 +33,15 @@ while read url; do
   else
     echo "Getting $url"
     if echo $url | grep -q '^https*://www.dropbox.com'; then # dropbox link?
-      `dirname $0`/getDropboxFiles.sh "$url" "$Lib"
+      $KC_HOME/getDropboxFiles.sh "$url" "$Lib"
     elif echo $url | grep -q '^https*://filedn.com'; then
-      `dirname $0`/getpCloudFiles.sh "$url" "$Lib"
+      $KC_HOME/getpCloudFiles.sh "$url" "$Lib"
     elif echo $url | grep -q '^https*://[^/]*pcloud'; then
-      `dirname $0`/getpCloudFiles.sh "$url" "$Lib"
+      $KC_HOME/getpCloudFiles.sh "$url" "$Lib"
     elif echo $url | grep -q '^https*://drive.google.com'; then
-      `dirname $0`/getGDriveFiles.sh "$url" "$Lib"
+      $KC_HOME/getGDriveFiles.sh "$url" "$Lib"
     else
-      `dirname $0`/getOwncloudFiles.sh "$url" "$Lib"
+      $KC_HOME/getOwncloudFiles.sh "$url" "$Lib"
     fi
   fi
 done < $UserConfig

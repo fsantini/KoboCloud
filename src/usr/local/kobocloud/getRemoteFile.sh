@@ -6,7 +6,7 @@ user="$3"
 outputFileTmp="/tmp/kobo-remote-file-tmp.log"
 
 #load config
-. `dirname $0`/config.sh
+. $(dirname $0)/config.sh
 
 curlCommand="$CURL"
 if [ ! -z "$user" ] && [ "$user" != "-" ]; then
