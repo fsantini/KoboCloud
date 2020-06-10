@@ -21,6 +21,8 @@ Below we describe each step.
 ### Compilling
 
 - Move to the project directory root
+- Open the configuration file located at `src/usr/local/kobocloud/kobocloudrc.tmpl`
+- Add the links to the cloud services (see the configuration example that follow below)
 - Run `sh ./makeKoboRoot.sh`
 
 The last command will create a `KoboRoot.tgz` archive.
