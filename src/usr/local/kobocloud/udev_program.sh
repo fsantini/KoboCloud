@@ -1,9 +1,5 @@
 #!/bin/sh
 
-if [ "$ACTION" != "add" ]; then
-  exit 1
-fi
-
 #load config
 . `dirname $0`/config.sh
 

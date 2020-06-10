@@ -1,4 +1,4 @@
-KERNEL=="eth*", RUN+="/usr/local/kobocloud/udev_program.sh" 
-KERNEL=="wlan*", RUN+="/usr/local/kobocloud/udev_program.sh" 
+KERNEL=="eth*", ACTION=="add", RUN+="/usr/local/kobocloud/udev_program.sh"
+KERNEL=="wlan*", ACTION=="add", RUN+="/usr/local/kobocloud/udev_program.sh"
 KERNEL=="lo", RUN+="/usr/local/kobocloud/udev_mount.sh"
 
