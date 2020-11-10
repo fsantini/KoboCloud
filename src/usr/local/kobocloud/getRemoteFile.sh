@@ -5,6 +5,12 @@ localFile="$2"
 user="$3"
 outputFileTmp="/tmp/kobo-remote-file-tmp.log"
 
+# add the epub extension to kepub files
+if echo "$localFile" | grep -Eq '\.kepub$'
+then
+    localFile="$localFile.epub"
+fi
+
 #load config
 . $(dirname $0)/config.sh
 
