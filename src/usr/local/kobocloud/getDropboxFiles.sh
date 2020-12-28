@@ -12,8 +12,9 @@ baseURL=`echo "$baseURL" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//'`
 echo "Getting $baseURL"
 # get directory listing
 $CURL -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.89 Safari/537.36" -k -L --silent "$baseURL" | # get listing. Need to specify a user agent, otherwise it will download the directory
-grep -Eo 'previews\.dropboxusercontent\.com.*' | 
+grep -Eo 'ShmodelFolderEntriesPrefetch.*' | 
 grep -Eo 'https?://www.dropbox.com/sh/[^\"]*' | # find links
+sort -u | # remove duplicates
 while read linkLine
 do
   if [ "$linkLine" = "$baseURL" ]
