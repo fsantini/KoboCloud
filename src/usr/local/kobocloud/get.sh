@@ -45,6 +45,8 @@ while read url; do
       $KC_HOME/getpCloudFiles.sh "$url" "$Lib"
     elif echo $url | grep -q '^https*://drive.google.com'; then
       $KC_HOME/getGDriveFiles.sh "$url" "$Lib"
+    elif echo $url | grep -q '^https*://app.box.com'; then
+      $KC_HOME/getBoxFiles.sh "$url" "$Lib"
     else
       $KC_HOME/getOwncloudFiles.sh "$url" "$Lib"
     fi
