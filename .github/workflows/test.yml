@@ -12,19 +12,19 @@ jobs:
           uses: actions/checkout@v2
           with:
             path: repo
-         
+            
         - name: Test Dropbox
-           run: |
+          run: |
             cd repo
             ./local_test.sh dropbox
             
         - name: Test pcloud
-           run: |
+          run: |
             cd repo
             ./local_test.sh pcloud
             
         - name: Test GDrive
-           run: |
+          run: |
             cd repo
             ./local_test.sh gdrive
             
