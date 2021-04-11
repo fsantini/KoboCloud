@@ -1,0 +1,30 @@
+name: Test KoboCloud
+
+on:
+  - pull_request
+
+jobs:
+  job:
+    name: Test the Pull Request
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout repository
+          uses: actions/checkout@v2
+          with:
+            path: repo
+            
+         - name: Test Dropbox
+           run: |
+            cd repo
+            ./local_test.sh dropbox
+            
+        - name: Test pcloud
+           run: |
+            cd repo
+            ./local_test.sh pcloud
+            
+        - name: Test GDrive
+           run: |
+            cd repo
+            ./local_test.sh gdrive
+            
