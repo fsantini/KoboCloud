@@ -1,0 +1,31 @@
+name: Deploy KoboRoot.tgz
+
+on:
+  push:
+    branches:
+        - master
+
+jobs:
+
+  job:
+    name: Create and deploy KoboRoot
+    runs-on: ubuntu-latest
+    steps:
+        - name: Checkout repository
+          uses: actions/checkout@v2
+          with:
+            path: repo
+            
+        - name: Get cacert
+          run: repo/updateCABundle.sh
+          
+        - name: Create KoboRoot
+          run: repo/makeKoboRoot.sh
+          
+        - uses: "marvinpinto/action-automatic-releases@latest"
+          with:
+            repo_token: "${{ secrets.GITHUB_TOKEN }}"
+            automatic_release_tag: "latest"
+            title: "Latest release"
+            files: |
+                repo/KoboRoot.tgz
