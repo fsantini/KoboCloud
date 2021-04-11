@@ -21,7 +21,7 @@ mkdir -p $Lib
 rm -f $Lib/$TestFile
 echo $URL > $UserConfig
 
-src/usr/local/kobocloud/get.sh
+src/usr/local/kobocloud/get.sh TEST
 
 if sha1sum $Lib/$TestFile | grep $sha1
 then
