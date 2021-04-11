@@ -11,6 +11,8 @@ The following cloud services are supported:
 
 ## Installation
 
+You can find the latest `KoboRoot.tgz` in the Relese page of this repository. If you use this file, skip to the "Installing" step.
+
 The installation process has 2 steps:
 
 - Compile the script into an archive format
@@ -18,7 +20,7 @@ The installation process has 2 steps:
 
 Below we describe each step.
 
-### Compilling
+### Compiling
 
 - Move to the project directory root
 - Open the configuration file located at `src/usr/local/kobocloud/kobocloudrc.tmpl`
