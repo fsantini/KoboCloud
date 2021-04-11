@@ -17,10 +17,14 @@ jobs:
             path: repo
             
         - name: Get cacert
-          run: repo/updateCABundle.sh
+          run:  |
+            cd repo
+            ./updateCABundle.sh
           
         - name: Create KoboRoot
-          run: repo/makeKoboRoot.sh
+          run: |
+            cd repo
+            ./makeKoboRoot.sh
           
         - uses: "marvinpinto/action-automatic-releases@latest"
           with:
