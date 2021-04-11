@@ -11,7 +11,9 @@ The following cloud services are supported:
 
 ## Installation
 
-You can find the latest `KoboRoot.tgz` in the Relese page of this repository. If you use this file, skip to the "Installing" step.
+You can find the latest `KoboRoot.tgz` in the Relese page of this repository. [Direct download link](https://github.com/fsantini/KoboCloud/releases/download/latest/KoboRoot.tgz).
+
+If you use this file, skip to the "Installing" step.
 
 The installation process has 2 steps:
 
