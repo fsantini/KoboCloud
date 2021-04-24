@@ -29,3 +29,8 @@ jobs:
             cd repo
             ./local_test.sh gdrive
             
+        - name: Test Box
+          run: |
+            cd repo
+            ./local_test.sh box
+            
