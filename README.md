@@ -7,7 +7,7 @@ The following cloud services are supported:
 - Google Drive
 - NextCloud/OwnCloud
 - pCloud
-
+- Box
 
 ## Installation
 
@@ -96,6 +96,14 @@ Please note that you need a recent Nextcloud version. Owncloud is at the moment 
 - Add the public link to the containing folder (starting with https://my.pcloud.com/ or https://u.pcloud.link/) to the kobocloudrc file.
 
 Files added into a subfolder of the *public* folder of pCloud are also supported.
+
+### Box
+
+- On a Box folder, click "Create link" in the sidebar and enable "Share Link"
+- Select the options "People with the link" and "can view and download"
+- Copy-paste the link in the kobocloudrc file
+
+Please note that, even though the script supports folders where the file list has multiple pages, having a list with many pages might not work.
 
 ## Usage
 
