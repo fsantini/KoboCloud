@@ -14,6 +14,9 @@ then
 elif [ "$SERVICE" = "box" ]
 then
     URL='https://app.box.com/s/1y5e82xbyksuywamih7vu08yaiefqm65'
+elif [ "$SERVICE" = "nextcloud" ]
+then
+    URL='https://nextcloud.url/nextcloud/index.php/s/xxxxyyyyDkd'
 else
     URL='https://drive.google.com/drive/folders/1Wi37shmjG56L1D8OSdIZstkUfnpTsdAp'
 fi
