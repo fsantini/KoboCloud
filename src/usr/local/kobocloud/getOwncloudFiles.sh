@@ -20,7 +20,7 @@ $KC_HOME/getOwncloudList.sh $shareID $davServer |
 while read relativeLink
 do
   # process line 
-  outFileName=`basename $relativeLink`
+  outFileName=`basename $relativeLink | sed 's@+@ @g;s@%@\\x@g' | xargs -0 printf "%b"`
   linkLine=$davServer/$relativeLink
   localFile="$outDir/$outFileName"
   # get remote file
