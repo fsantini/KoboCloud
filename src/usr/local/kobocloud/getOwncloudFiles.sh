@@ -21,7 +21,7 @@ while read relativeLink
 do
   # process line 
   outFileName=`basename $relativeLink`
-  linkLine=$davServer/$relativeLink
+  linkLine=$davServer$relativeLink
   localFile="$outDir/$outFileName"
   # get remote file
   $KC_HOME/getRemoteFile.sh "$linkLine" "$localFile" $shareID
