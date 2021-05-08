@@ -1,4 +1,6 @@
 #!/bin/sh
+#function to percent-decode the filename from the OwnCloud URL
+percentDecodeFileName() { printf "%b\n" "$(sed 's/+/ /g; s/%\([0-9a-f][0-9a-f]\)/\\x\1/g;')"; }
 
 baseURL="$1"
 outDir="$2"
@@ -20,7 +22,7 @@ $KC_HOME/getOwncloudList.sh $shareID $davServer |
 while read relativeLink
 do
   # process line 
-  outFileName=`basename $relativeLink | sed 's@+@ @g;s@%@\\x@g' | xargs -0 printf "%b"`
+  outFileName=`basename $relativeLink | percentDecodeFileName`
   linkLine=$davServer/$relativeLink
   localFile="$outDir/$outFileName"
   # get remote file
