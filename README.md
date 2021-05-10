@@ -11,7 +11,7 @@ The following cloud services are supported:
 
 ## Installation
 
-You can find the latest `KoboRoot.tgz` in the Relese page of this repository. [Direct download link](https://github.com/fsantini/KoboCloud/releases/download/latest/KoboRoot.tgz).
+You can find the latest `KoboRoot.tgz` in the Release page of this repository. [Direct download link](https://github.com/fsantini/KoboCloud/releases/download/latest/KoboRoot.tgz).
 
 If you use this file, skip to the "Installing" step.
 
@@ -129,7 +129,7 @@ KoboCloud keeps a log of each session in the .add/kobocloud/get.log file. If som
 ## Known issues
 
 * No subdirectories are supported
-* Some versions of Kobo make the same book appear twice in the library. This is because it scans the internal directory where the files are saved as well as the "official" folders. To solve this problem find the `Kobo eReader.conf` file inside your `.add` folder and make sure the following line (which prevents the syncing of dotfiles and dotfolders) is set in the `[FeatureSettings]` section:
+* Some versions of Kobo make the same book appear twice in the library. This is because it scans the internal directory where the files are saved as well as the "official" folders. To solve this problem find the `Kobo eReader.conf` file inside your `.kobo/Kobo` folder and make sure the following line (which prevents the syncing of dotfiles and dotfolders) is set in the `[FeatureSettings]` section:
 ```
   ExcludeSyncFolders=\\.(?!add|adobe).*?
 ```
