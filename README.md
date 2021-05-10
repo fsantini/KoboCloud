@@ -91,6 +91,8 @@ To add a NextCloud (ownCloud) link:
 
 Please note that you need a recent Nextcloud version. Owncloud is at the moment not tested, but should also work.
 
+**Important**: Webdav for public folders should be enabled, see: https://docs.nextcloud.com/server/20/user_manual/en/files/access_webdav.html#accessing-public-shares-over-webdav for more info.
+
 ### pCloud
 
 - Add the public link to the containing folder (starting with https://my.pcloud.com/ or https://u.pcloud.link/) to the kobocloudrc file.
