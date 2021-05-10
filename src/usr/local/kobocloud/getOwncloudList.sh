@@ -12,4 +12,5 @@ echo '<?xml version="1.0"?>
 </a:propfind>' |
 $CURL -k --silent -i -X PROPFIND -u $user: $davServer/public.php/webdav --upload-file - -H "Depth: 1" | # get the listing
 grep -Eo '<d:href>[^<]*[^/]</d:href>' | # get the links without the folders
-sed 's@</*d:href>@@g' # remove the hrefs
+sed 's@</*d:href>@@g' | # remove the hrefs
+sed 's/\/public/public/'
