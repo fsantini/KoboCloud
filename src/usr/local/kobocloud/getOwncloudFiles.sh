@@ -31,7 +31,7 @@ $KC_HOME/getOwncloudList.sh $shareID $davServerWithOwncloudPath |
 while read relativeLink
 do
   # process line 
-  outFileName=`$relativeLink | sed 's/.*public.php\/webdav\///' | percentDecodeFileName`
+  outFileName=`echo $relativeLink | sed 's/.*public.php\/webdav\///' | percentDecodeFileName`
   linkLine=$davServer$relativeLink
   localFile="$outDir/$outFileName"
   # get remote file
