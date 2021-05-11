@@ -20,9 +20,9 @@ if [ ! -z "$user" ] && [ "$user" != "-" ]; then
     curlCommand="$curlCommand -u $user: "
 fi
 
-echo "Download: "$curlCommand -k --silent -C - -L -o "$localFile" "$linkLine" -v
+echo "Download: "$curlCommand -k --silent -C - -L --create-dirs -o "$localFile" "$linkLine" -v
 
-$curlCommand -k --silent -C - -L -o "$localFile" "$linkLine" -v 2>$outputFileTmp
+$curlCommand -k --silent -C - -L --create-dirs -o "$localFile" "$linkLine" -v 2>$outputFileTmp
 status=$?
 echo "Status: $status"
 echo "Output: "
