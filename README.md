@@ -89,7 +89,8 @@ To add a NextCloud (ownCloud) link:
 - Click on "Share" and select "Share with link"
 - Copy the link into the kobocloudrc file
 
-Please note that you need a recent Nextcloud version. Owncloud is at the moment not tested, but should also work.
+Please note that you need a recent NextCloud (OwnCloud) version.
+Subdirectories are supported for NextCloud (OwnCloud).
 
 **Important**: Webdav for public folders should be enabled, see: https://docs.nextcloud.com/server/20/user_manual/en/files/access_webdav.html#accessing-public-shares-over-webdav for more info.
 
