@@ -15,12 +15,17 @@ while read entry
 do
     entryType=`echo $entry | sed -n 's/.*x22\(.*\)$/\1/p'` #Get the type. Needed to see if it's a file or a folder.
     entryCode=`echo $entry | sed -n 's/x5bx22\(.*\)x22,x5bx22.*$/\1/p'` #Get the identifying code of the file/folder
-
+    entryName=`echo $entry | sed -n 's/x5bx22.*,x22\(.*\)x22,x22application.*$/\1/p'`
     
     if [ "$entryType" = "application/vnd.google-apps.folder" ]; then #if it's a folder it runs this function for the folder
-        find_files $entryCode
+        find_files $entryCode $entryName
     else
-        echo $entry | sed -n 's/\([^\\\]*\)x22,.*/\1/p'
+        if [ -z ${2+x} ]; then 
+            echo $entry | sed -n 's/\([^\\\]*\)x22,.*/\1/p'
+        else 
+            echo $entry | sed -n "s/\([^\\\]*x22,.*x22\)\(.*\)x22,x22application.*$/\1$2\/\2/p"
+        fi
+        
     fi
 done
 }
