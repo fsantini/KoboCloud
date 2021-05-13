@@ -17,7 +17,7 @@ do
     entryCode=`echo $entry | sed -n 's/x5bx22\(.*\)x22,x5bx22.*$/\1/p'` #Get the identifying code of the file/folder
 
     
-    if [ "$fileType" = "application/vnd.google-apps.folder" ]; then #if it's a folder it runs this function for the folder
+    if [ "$entryType" = "application/vnd.google-apps.folder" ]; then #if it's a folder it runs this function for the folder
         find_files $entryCode
     else
         echo $entry | sed -n 's/\([^\\\]*\)x22,.*/\1/p'
