@@ -14,7 +14,7 @@ gDirCode=`echo $baseURL | sed 's@.*/\([^/\?]*\).*@\1@'`
 
 echo $gDirCode
 
-links=`find_links "$gDirCode"` # find links
+links=`find_files "$gDirCode"` # find links
 echo "$links" |
 while read fileInfo
 do
