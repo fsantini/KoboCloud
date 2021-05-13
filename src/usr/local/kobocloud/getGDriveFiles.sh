@@ -13,8 +13,9 @@ echo "Getting $baseURL"
 gDirCode=`echo $baseURL | sed 's@.*/\([^/\?]*\).*@\1@'`
 
 echo $gDirCode
-$CURL -k -L --silent "$baseURL" |
-grep -Eo "\\\x5b\\\x22[^\\\]*\\\x22,\\\x5b\\\x22$gDirCode\\\x22\\\x5d\\\n,\\\x22[^\\\]*" | # find links
+
+links=`find_links "$gDirCode"` # find links
+echo "$links" |
 while read fileInfo
 do
     echo "File info: $fileInfo"
