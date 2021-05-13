@@ -31,7 +31,7 @@ then
     done
 fi
 
-while read url; do
+while read url || [ -n "$url" ]; do
   echo "Reading $url"
   if echo "$url" | grep -q '^#'; then
     echo "Comment found"
