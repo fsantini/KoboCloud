@@ -11,7 +11,7 @@ find_files() #function to find all files in the folder
 
 
 curl -k -L --silent "https://drive.google.com/drive/folders/$1" |
-grep -Po "\\\x5b\\\x22[^\\\]*\\\x22,\\\x5b\\\x22$1\\\x22\\\x5d\\\n,\\\x22.*?\\\x22,\\\x22application\\\/[^\\\]*" |
+grep -Eo "\\\x5b\\\x22[^\\\]*\\\x22,\\\x5b\\\x22$1\\\x22\\\x5d\\\n,\\\x22.{1,250}\\\x22,\\\x22application\\\/[^\\\]*" |
 sed 's/\\\x/\\\\\x/g' |
 while read entry
 do
