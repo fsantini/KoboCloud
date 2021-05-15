@@ -22,7 +22,6 @@ do
     if [ "$entryType" = "application/vnd.google-apps.folder" ]; then #if it's a folder it runs this function for the folder
         find_files $entryCode "$entryName\/"
     else
-        echo $entry
         echo $entry | sed -n "s/\([^\\\]*\\\x22,.*\\\x22\)\(.*\)\\\x22,\\\x22application.*$/\1$2\\2/p"
     fi
 done
