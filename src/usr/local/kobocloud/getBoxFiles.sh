@@ -19,7 +19,7 @@ numPages=`echo $pageContent | grep -Eo 'pageCount":[0-9]+,' | sed -n 's/pageCoun
 while [ "$currPage" -le "$numPages" ]
 do
     echo "$pageContent" | 
-    grep -Eo 'typedID":"[^"]+","type":"file","id":[0-9]+,(.+?),"name":"[^"]+"' | # find links
+    grep -Eo 'typedID":"[^"]+","type":"file","id":[0-9]+,(.*),"name":"[^"]+","itemSize"' | # find links
     while read fileInfo
     do
         #echo "File info: $fileInfo"
