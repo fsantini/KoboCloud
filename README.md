@@ -78,6 +78,7 @@ To add a Dropbox link:
 - Select the option "anyone with the link can view."
 - Copy-paste the link in the kobocloudrc file
 
+Subdirectories are supported for Google Drive.
 **Important**: Folders with many files might not work.
 
 ### Nextcloud (Owncloud)
