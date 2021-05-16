@@ -14,12 +14,12 @@ echo "Getting $baseURL"
 boxDirCode=`echo $baseURL | sed 's@.*/\(.*\)$@\1@'`
 
 pageContent=`$CURL -k -L --silent "$baseURL"`
-numPages=`echo $pageContent | grep -Eo 'pageCount":[0-9]+,' | sed -n 's/pageCount":\([0-9]*\),/\1/p'`
+numPages=`echo $pageContent | grep -Po 'pageCount":[0-9]+,' | sed -n 's/pageCount":\([0-9]*\),/\1/p'`
 
 while [ "$currPage" -le "$numPages" ]
 do
     echo "$pageContent" | 
-    grep -Eo 'typedID":"[^"]+","type":"file","id":[0-9]+,(.*),"name":"[^"]+","itemSize"' | # find links
+    grep -Po 'typedID":"[^"]+","type":"file","id":[0-9]+,(.+?),"name":"[^"]+"' | # find links
     while read fileInfo
     do
         #echo "File info: $fileInfo"
