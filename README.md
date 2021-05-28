@@ -9,39 +9,21 @@ The following cloud services are supported:
 - pCloud
 - Box
 
-## Installation
+## <a name="installation"></a>Installation
 
-You can find the latest `KoboRoot.tgz` in the Release page of this repository. [Direct download link](https://github.com/fsantini/KoboCloud/releases/download/latest/KoboRoot.tgz).
+Download the latest `KoboRoot.tgz` from the Release page (or using [this direct link](https://github.com/fsantini/KoboCloud/releases/download/latest/KoboRoot.tgz)).
 
-If you use this file, skip to the "Installing" step.
-
-The installation process has 2 steps:
-
-- Compile the script into an archive format
-- Install into the Kobo device
-
-Below we describe each step.
-
-### Compiling
-
-- Move to the project directory root
-- Open the configuration file located at `src/usr/local/kobocloud/kobocloudrc.tmpl`
-- Add the links to the cloud services (see the configuration example that follow below)
-- Run `sh ./makeKoboRoot.sh`
-
-The last command will create a `KoboRoot.tgz` archive.
-
-### Installing
+Copy it into the Kobo device:
 
 - Connect the Kobo device and mount it (you should be able to access to the kobo filesystem)
 - Copy the .tgz archive in the .kobo directory(1) of your device
-- Restart your Kobo device
+- Unplug and restart your Kobo device
 
 (1) It is a hidden directory, so you have to enable the visualization of hidden files
 
 ## Configuration
 
-After following the installation process:
+After the installation process:
 
 - Plug your Kobo back into the computer
 - Open the configuration file located at `.add/kobocloud/kobocloudrc`
@@ -57,11 +39,10 @@ https://drive.google.com/drive/folders/<ID>?usp=sharing
 https://www.dropbox.com/sh/pgSHORTENED
 ```
 
-**Important**: make sure that there are no spaces before or after the link on the line.
-
-Notice: No subdirectories are supported at the moment. Your books must be all in the same directories that you are sharing.
-
-Restart your Kobo after making changes to kobocloudrc to make them effective.
+Some important advice:
+- make sure that there are **no spaces** before or after the link on the line
+- **no subdirectories** are supported at the moment, your books must be all in the same directories that you are sharing
+- **restart your Kobo** after any kobocloudrc changes to to make them effective
 
 ### Dropbox
 
@@ -70,7 +51,6 @@ To add a Dropbox link:
 - Open your dropbox in a browser
 - Select the folder that you want to share and click "Share" and "Send link"
 - Copy the link that appears into the kobocloudrc file
-
 
 ### Google Drive
 
@@ -111,7 +91,7 @@ Please note that, even though the script supports folders where the file list ha
 
 ## Usage
 
-The new files will be downloaded when the kobo connects to the Internet for a sync.
+The new files will be downloaded when the kobo connects to the Internet for a sync. Sometimes few minutes is needed after the sync process for the device to recognize and import new downloaded content.
 
 ## Uninstallation
 
@@ -123,6 +103,25 @@ To properly uninstall KoboCloud:
 The next time the Kobo is connected to the Internet, the program will delete itself.
 
 Note: The directory .add/kobocloud will not be deleted: after connecting the device to a computer, you should move the files from the Library subfolder in order not to lose your content, and delete the whole kobocloud directory manually.
+
+## Installation from source code
+
+To install KoboCloud from source code:
+
+- Download this repository
+- Compile the code into an archive format (instructions below)
+- Follow [installation](#installation) instructions
+
+### Compiling
+
+- Move to the project directory root
+- Open the configuration file located at `src/usr/local/kobocloud/kobocloudrc.tmpl`
+- Add the links to the cloud services (see the configuration example that follow below)
+- Run `sh ./makeKoboRoot.sh`
+
+The last command will create a `KoboRoot.tgz` archive.
+
+Now you can follow [installation](#installation) instructions.
 
 ## Troubleshooting
 
