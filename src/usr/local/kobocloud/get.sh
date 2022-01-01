@@ -13,6 +13,11 @@ if grep -q '^UNINSTALL$' $UserConfig; then
     exit 0
 fi
 
+if grep -q "^MATCH_REMOTE$" $UserConfig; then
+	echo "$Lib/filesList.log" > "$Lib/filesList.log"
+fi
+
+
 if [ "$TEST" = "" ]
 then
     #check internet connection
@@ -31,12 +36,12 @@ then
     done
 fi
 
-echo "$Lib/filesList.log" > "$Lib/filesList.log"
-
 while read url || [ -n "$url" ]; do
   echo "Reading $url"
   if echo "$url" | grep -q '^#'; then
     echo "Comment found"
+  elif echo "$url" | grep -q "^MATCH_REMOTE$"; then
+	echo "Will match remote"
   else
     echo "Getting $url"
     if echo $url | grep -q '^https*://www.dropbox.com'; then # dropbox link?
@@ -67,8 +72,12 @@ for item in *; do
 	fi
 done
 }
-cd "$Lib"
-recursiveUpdateFiles
+
+if grep -q "^MATCH_REMOTE$" $UserConfig; then
+	cd "$Lib"
+	echo "Matching remote server"
+	recursiveUpdateFiles
+fi
 
 if [ "$TEST" = "" ]
 then
