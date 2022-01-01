@@ -43,4 +43,7 @@ if echo "$statusCode" | grep -q "50.*"; then
     exit 3
 fi
 
+echo "$localFile" >> "$Lib/filesList.log"
+echo "Appended $localFile to filesList"
 echo "getRemoteFile ended"
+

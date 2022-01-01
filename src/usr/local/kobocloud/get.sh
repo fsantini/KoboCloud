@@ -31,6 +31,8 @@ then
     done
 fi
 
+echo "$Lib/filesList.log" > "$Lib/filesList.log"
+
 while read url || [ -n "$url" ]; do
   echo "Reading $url"
   if echo "$url" | grep -q '^#'; then
@@ -52,6 +54,21 @@ while read url || [ -n "$url" ]; do
     fi
   fi
 done < $UserConfig
+
+recursiveUpdateFiles() {
+for item in *; do
+	if [ -d "$item" ]; then 
+		(cd -- "$item" && recursiveUpdateFiles)
+	elif grep -q $item "$Lib/filesList.log"; then
+		echo "$item found"
+	else
+		echo "$item not found, deleting"
+		rm "$item"
+	fi
+done
+}
+cd "$Lib"
+recursiveUpdateFiles
 
 if [ "$TEST" = "" ]
 then
