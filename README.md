@@ -104,6 +104,14 @@ The next time the Kobo is connected to the Internet, the program will delete its
 
 Note: The directory .add/kobocloud will not be deleted: after connecting the device to a computer, you should move the files from the Library subfolder in order not to lose your content, and delete the whole kobocloud directory manually.
 
+## Matching remote server
+To delete files from library when they are no longer in the remote server:
+
+- Edit the kobocloudrc file so it contains the phrase `MATCH_REMOTE` in a single line (all capital, no spaces before or after)
+- Restart your Kobo
+
+The next time the Kobo is connected to the internet, it will delete any files (it will not delete directories) that are not in the remote server.
+
 ## Installation from source code
 
 To install KoboCloud from source code:
