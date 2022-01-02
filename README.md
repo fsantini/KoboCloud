@@ -37,6 +37,7 @@ Configuration example:
 https://drive.google.com/drive/folders/<ID>?usp=sharing
 # Dropbox:
 https://www.dropbox.com/sh/pgSHORTENED
+MATCH_REMOTE
 ```
 
 Some important advice:
@@ -89,6 +90,15 @@ Files added into a subfolder of the *public* folder of pCloud are also supported
 
 Please note that, even though the script supports folders where the file list has multiple pages, having a list with many pages might not work.
 
+### Matching remote server
+To delete files from library when they are no longer in the remote server:
+
+- Edit the kobocloudrc file so it contains the phrase `MATCH_REMOTE` in a single line (all capital, no spaces before or after).
+- Restart your Kobo.
+
+The next time the Kobo is connected to the internet, it will delete any files (it will not delete directories) that are not in the remote server.
+
+
 ## Usage
 
 The new files will be downloaded when the kobo connects to the Internet for a sync. Sometimes few minutes is needed after the sync process for the device to recognize and import new downloaded content.
@@ -103,14 +113,6 @@ To properly uninstall KoboCloud:
 The next time the Kobo is connected to the Internet, the program will delete itself.
 
 Note: The directory .add/kobocloud will not be deleted: after connecting the device to a computer, you should move the files from the Library subfolder in order not to lose your content, and delete the whole kobocloud directory manually.
-
-## Matching remote server
-To delete files from library when they are no longer in the remote server:
-
-- Edit the kobocloudrc file so it contains the phrase `MATCH_REMOTE` in a single line (all capital, no spaces before or after)
-- Restart your Kobo
-
-The next time the Kobo is connected to the internet, it will delete any files (it will not delete directories) that are not in the remote server.
 
 ## Installation from source code
 
