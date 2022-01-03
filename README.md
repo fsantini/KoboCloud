@@ -37,7 +37,7 @@ Configuration example:
 https://drive.google.com/drive/folders/<ID>?usp=sharing
 # Dropbox:
 https://www.dropbox.com/sh/pgSHORTENED
-MATCH_REMOTE
+REMOVE_DELETED
 ```
 
 Some important advice:
@@ -93,7 +93,7 @@ Please note that, even though the script supports folders where the file list ha
 ### Matching remote server
 To delete files from library when they are no longer in the remote server:
 
-- Edit the kobocloudrc file so it contains the phrase `MATCH_REMOTE` in a single line (all capital, no spaces before or after).
+- Edit the kobocloudrc file so it contains the phrase `REMOVE_DELETED` in a single line (all capital, no spaces before or after).
 - Restart your Kobo.
 
 The next time the Kobo is connected to the internet, it will delete any files (it will not delete directories) that are not in the remote server.

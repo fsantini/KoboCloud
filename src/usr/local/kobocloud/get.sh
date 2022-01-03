@@ -13,7 +13,7 @@ if grep -q '^UNINSTALL$' $UserConfig; then
     exit 0
 fi
 
-if grep -q "^MATCH_REMOTE$" $UserConfig; then
+if grep -q "^REMOVE_DELETED$" $UserConfig; then
 	echo "$Lib/filesList.log" > "$Lib/filesList.log"
 fi
 
@@ -40,7 +40,7 @@ while read url || [ -n "$url" ]; do
   echo "Reading $url"
   if echo "$url" | grep -q '^#'; then
     echo "Comment found"
-  elif echo "$url" | grep -q "^MATCH_REMOTE$"; then
+  elif echo "$url" | grep -q "^REMOVE_DELETED$"; then
 	echo "Will match remote"
   else
     echo "Getting $url"
@@ -73,7 +73,7 @@ for item in *; do
 done
 }
 
-if grep -q "^MATCH_REMOTE$" $UserConfig; then
+if grep -q "^REMOVE_DELETED$" $UserConfig; then
 	cd "$Lib"
 	echo "Matching remote server"
 	recursiveUpdateFiles
