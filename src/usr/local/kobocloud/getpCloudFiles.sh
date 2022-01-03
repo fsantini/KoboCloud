@@ -22,7 +22,19 @@ do
   
   # get public ID
   jsonAns=`$CURL -k -L --silent "https://api.pcloud.com/getpublinkdownload?code=$code&forcedownload=1&fileid=$fileid"`
-  #echo $jsonAns
+  echo $jsonAns
+  
+  if echo $jsonAns | grep -q "error" # try European API
+  then
+    jsonAns=`$CURL -k -L --silent "https://eapi.pcloud.com/getpublinkdownload?code=$code&forcedownload=1&fileid=$fileid"`
+    echo $jsonAns
+  fi
+  
+  if echo $jsonAns | grep -q "error"
+  then
+    echo "Error downloading file"
+    continue
+  fi
   
   remotePath=`echo $jsonAns | sed -e 's/.*"path": "\([^"]*\)".*/\1/' -e 's@\\\\/@/@g'`
   #echo $remotePath
