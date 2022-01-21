@@ -21,6 +21,8 @@ Copy it into the Kobo device:
 
 (1) It is a hidden directory, so you have to enable the visualization of hidden files
 
+**Note for Mac/Safari users:** Safari automatically unpacks `KoboRoot.tgz` into `KoboRoot.tar` after downloading. Please make sure that you transfer the `.tgz` file to your Kobo, and **not** the `.tar`. Either use a different browser to download the package, or re-pack it (using `gzip`) before transferring.
+
 ## Configuration
 
 After the installation process:
