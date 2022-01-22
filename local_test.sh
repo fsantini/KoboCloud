@@ -2,8 +2,9 @@
 
 SERVICE=$1
 
-TestFile=ulysses.epub
+TestFiles=("ulysses.epub" "01/ulysses.epub" "01/ulysses01.epub" "02/ulysses.epub" "02/ulysses02.epub")
 sha1=d07c5da10d4666766d1b796ba420cffca0ac440c
+TestSubdirs=false
 
 if [ "$SERVICE" = "dropbox" ]
 then
@@ -35,6 +36,7 @@ then
     # │    ├── ulysses02.epub
 │   # ├── ulysses.epub
     URL='https://nc01.adruna.org/s/Y72RfYJM79jct8N'
+    TestSubdirs=true
 elif [ "$SERVICE" = "nextcloudsubdirpath" ]
 then
     ##URL: domain.com/nextcloud
@@ -48,23 +50,38 @@ then
     # │    ├── ulysses02.epub
 │   # ├── ulysses.epub
     URL='https://nc02.adruna.org/nextcloud/s/wsA7DSNjfYgBmw4'
+    TestSubdirs=true
 else
     URL='https://drive.google.com/drive/folders/1Wi37shmjG56L1D8OSdIZstkUfnpTsdAp'
+    TestSubdirs=true
 fi
 
 . src/usr/local/kobocloud/config_pc.sh
 
 mkdir -p $Lib
-rm -f $Lib/$TestFile
+for file in ${TestFiles[@]}
+do
+    rm "$Lib/$file"
+done
 echo $URL > $UserConfig
 
 src/usr/local/kobocloud/get.sh TEST
 
-if sha1sum $Lib/$TestFile | grep $sha1
-then
-    echo OK
-    exit 0
-else
-    echo Failed
-    exit 1
-fi
+for file in ${TestFiles[@]}
+do
+    echo "Testing $file"
+    if sha1sum $Lib/$file | grep $sha1
+    then
+        echo OK
+        if [ "$TestSubdirs" != true ] # if we only want to test one file, exit
+        then
+            exit 0
+        fi
+    else
+        echo Failed
+        exit 1
+    fi
+done
+
+# if we reached here, we are good
+exit 0
