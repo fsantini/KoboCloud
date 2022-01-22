@@ -1,6 +1,7 @@
 #!/bin/bash
 
 SERVICE=$1
+TEST_DELETED=$2
 
 TestFiles=("ulysses.epub" "01/ulysses.epub" "01/ulysses01.epub" "02/ulysses.epub" "02/ulysses02.epub")
 sha1=d07c5da10d4666766d1b796ba420cffca0ac440c
@@ -65,7 +66,28 @@ do
 done
 echo $URL > $UserConfig
 
+if [ "$TEST_DELETED" = true ]
+then
+    echo "Testing for deleted files"
+    echo "REMOVE_DELETED" >> $UserConfig
+    mkdir -p "$Lib/01"
+    touch "$Lib/delete_me.epub"
+    touch "$Lib/01/delete_me.epub"
+fi
+
 src/usr/local/kobocloud/get.sh TEST
+
+if [ "$TEST_DELETED" = true ]
+then
+    if [ -f "$Lib/delete_me.epub" ] || [ -f "$Lib/01/delete_me.epub" ]
+    then
+        echo "Files not deleted!"
+        exit 1
+    else
+        echo "Files deleted successfully"
+    fi
+fi
+        
 
 for file in ${TestFiles[@]}
 do
