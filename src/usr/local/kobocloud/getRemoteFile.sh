@@ -43,4 +43,9 @@ if echo "$statusCode" | grep -q "50.*"; then
     exit 3
 fi
 
+if grep -q "^REMOVE_DELETED" $UserConfig; then
+	echo "$localFile" >> "$Lib/filesList.log"
+	echo "Appended $localFile to filesList"
+fi
 echo "getRemoteFile ended"
+
