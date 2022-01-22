@@ -33,4 +33,29 @@ jobs:
           run: |
             cd repo
             ./local_test.sh box
+        
+        - name: Test Nextcloud
+          run: |
+            cd repo
+            ./local_test.sh nextcloud
+            
+        - name: Test Nextcloud - path
+          run: |
+            cd repo
+            ./local_test.sh nextcloudpath
+            
+        - name: Test Nextcloud - subdir
+          run: |
+            cd repo
+            ./local_test.sh nextcloudsubdir
+            
+        - name: Test Nextcloud - subdir path
+          run: |
+            cd repo
+            ./local_test.sh nextcloudsubdirpath
+            
+        - name: Test GDrive + deletion
+          run: |
+            cd repo
+            ./local_test.sh gdrive true
             

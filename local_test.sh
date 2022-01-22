@@ -52,9 +52,13 @@ then
 │   # ├── ulysses.epub
     URL='https://nc02.adruna.org/nextcloud/s/wsA7DSNjfYgBmw4'
     TestSubdirs=true
-else
+elif [ "$SERVICE" = "gdrive" ]
+then
     URL='https://drive.google.com/drive/folders/1Wi37shmjG56L1D8OSdIZstkUfnpTsdAp'
     TestSubdirs=true
+else
+    echo "Unknown service"
+    exit 1
 fi
 
 . src/usr/local/kobocloud/config_pc.sh
