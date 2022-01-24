@@ -9,20 +9,23 @@ outDir="$2"
 find_files() #function to find all files in the folder 
 {
 
-
 $CURL -k -L --silent "https://drive.google.com/drive/folders/$1" |
-grep -Eo "\\\x5b\\\x22[^\\\]*\\\x22,\\\x5b\\\x22$1\\\x22\\\x5d,\\\x22.{1,250}\\\x22,\\\x22application\\\/[^\\\]*" |
+grep -Eo "\\\x5b\\\x22[^\\\]*\\\x22,\\\x5b\\\x22$1\\\x22\\\x5d,\\\x22.{1,250}\\\x22,\\\x22[^\\\]*\\\/[^\\\]*" |
 sed 's/\\\x/\\\\\x/g' |
 while read entry
 do
+    echo $entry
     entryType=`echo $entry | sed -n 's/.*\\\x22\(.*\)$/\1/p'` #Get the type. Needed to see if it's a file or a folder.
+    echo $entryType
     entryCode=`echo $entry | sed -n 's/\\\x5b\\\x22\(.*\)\\\x22,\\\x5b\\\x22.*$/\1/p'` #Get the identifying code of the file/folder
-    entryName=`echo $entry | sed -n 's/\\\x5b\\\x22.*,\\\x22\(.*\)\\\x22,\\\x22application.*$/\1/p'`
+    echo $entryCode
+    entryName=`echo $entry | sed -n 's|\\\x5b\\\x22.*,\\\x22\(.*\)\\\x22,\\\x22.*$|\1|p'`
+    echo $entryName
 
     if [ "$entryType" = "application/vnd.google-apps.folder" ]; then #if it's a folder it runs this function for the folder
-        find_files $entryCode "$entryName\/"
+        find_files $entryCode "$entryName/"
     else
-        echo $entry | sed -n "s/\([^\\\]*\\\x22,.*\\\x22\)\(.*\)\\\x22,\\\x22application.*$/\1$2\\2/p"
+        echo "$2$entryName|$entryCode"
     fi
 done
 }
@@ -41,8 +44,8 @@ sed 's/\\\x/\\\\\x/g' |
 while read fileInfo
 do
     echo "File info: $fileInfo"
-    fileCode=`echo $fileInfo | sed -n 's/\\\x5b\\\x22\([^\\\]*\)\\\x22,.*/\1/p'` # extract the code for file download (this is how a file is identified in GDrive)
-    fileName=`echo $fileInfo | sed -n 's/.*\\\x22\(.*\)$/\1/p'` # extract the file name
+    fileCode=`echo $fileInfo | sed -n 's/.*|\(.*\)/\1/p'` # extract the code for file download (this is how a file is identified in GDrive)
+    fileName=`echo $fileInfo | sed -n 's/\(.*\)|.*/\1/p'` # extract the file name
     echo "File code: $fileCode"
     echo "File name: $fileName"
     linkLine="https://drive.google.com/uc?id=$fileCode&export=download"
