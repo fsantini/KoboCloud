@@ -64,7 +64,7 @@ recursiveUpdateFiles() {
 for item in *; do
 	if [ -d "$item" ]; then 
 		(cd -- "$item" && recursiveUpdateFiles)
-	elif grep -q $item "$Lib/filesList.log"; then
+	elif grep -q "$item" "$Lib/filesList.log"; then
 		echo "$item found"
 	else
 		echo "$item not found, deleting"
