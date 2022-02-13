@@ -14,13 +14,9 @@ grep -Eo "\\\x5b\\\x22[^\\\]*\\\x22,\\\x5b\\\x22$1\\\x22\\\x5d,\\\x22.{1,250}\\\
 sed 's/\\\x/\\\\\x/g' |
 while read entry
 do
-    echo $entry
     entryType=`echo $entry | sed -n 's/.*\\\x22\(.*\)$/\1/p'` #Get the type. Needed to see if it's a file or a folder.
-    echo $entryType
     entryCode=`echo $entry | sed -n 's/\\\x5b\\\x22\(.*\)\\\x22,\\\x5b\\\x22.*$/\1/p'` #Get the identifying code of the file/folder
-    echo $entryCode
     entryName=`echo $entry | sed -n 's|\\\x5b\\\x22.*,\\\x22\(.*\)\\\x22,\\\x22.*$|\1|p'`
-    echo $entryName
 
     if [ "$entryType" = "application/vnd.google-apps.folder" ]; then #if it's a folder it runs this function for the folder
         find_files $entryCode "$entryName/"
