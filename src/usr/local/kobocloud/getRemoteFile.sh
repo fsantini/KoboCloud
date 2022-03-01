@@ -11,6 +11,7 @@ fi
 linkLine="$1"
 localFile="$2"
 user="$3"
+dropboxPath="$4"
 outputFileTmp="/tmp/kobo-remote-file-tmp.log"
 
 # add the epub extension to kepub files
@@ -26,6 +27,10 @@ curlCommand="$CURL"
 if [ ! -z "$user" ] && [ "$user" != "-" ]; then
     echo "User: $user"
     curlCommand="$curlCommand -u $user: "
+fi
+
+if [ ! -z "$dropboxPath" ] && [ "$dropboxPath" != "-" ]; then
+    curlCommand="$CURL -X POST --header \"Authorization: Bearer $user\" --header \"Dropbox-API-Arg: {\\\"path\\\": \\\"$dropboxPath\\\"}\""
 fi
 
 echo "Download:" $curlCommand -k --silent -C - -L --create-dirs -o \"$localFile\" \"$linkLine\" -v
