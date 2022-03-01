@@ -28,9 +28,9 @@ if [ ! -z "$user" ] && [ "$user" != "-" ]; then
     curlCommand="$curlCommand -u $user: "
 fi
 
-echo "Download: "$curlCommand -k --silent -C - -L --create-dirs -o "$localFile" "$linkLine" -v
+echo "Download:" $curlCommand -k --silent -C - -L --create-dirs -o \"$localFile\" \"$linkLine\" -v
 
-$curlCommand -k --silent -C - -L --create-dirs -o "$localFile" "$linkLine" -v 2>$outputFileTmp
+eval $curlCommand -k --silent -C - -L --create-dirs -o \"$localFile\" \"$linkLine\" -v 2>$outputFileTmp
 status=$?
 echo "Status: $status"
 echo "Output: "
@@ -53,7 +53,7 @@ if echo "$statusCode" | grep -q "50.*"; then
     if [ $errorResume ] && [ "$retry" = "TRUE" ]
     then
         echo "Can't resume. Checking size"
-        contentLength=`$curlCommand -k -sLI "$linkLine" | grep -i 'Content-Length' | sed 's/.*:\s*\([0-9]*\).*/\1/'`
+        contentLength=$(eval $curlCommand -k -sLI "$linkLine" | grep -i 'Content-Length' | sed 's/.*:\s*\([0-9]*\).*/\1/')
         existingLength=`stat --printf="%s" "$localFile"`
         echo "Remote length: $contentLength"
         echo "Local length: $existingLength"
