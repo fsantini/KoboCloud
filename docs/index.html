@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kobo Cloud Sync | KoboCloud</title>
+</head>
+
+<body>
+  <div class="container-lg px-3 my-5 markdown-body">
+
+    <h1>Kobo Cloud Sync</h1>
+    <p>Add the following line in the kobocloudrc file:</p>
+
+    <pre id="token"></pre>
+  </div>
+</body>
+
+</html>
+
+<script>
+  let token = new URLSearchParams(
+    window.location.hash.substr(1) // skip the first char (#)
+  ).get('access_token')
+  document.getElementById("token").innerHTML = "DropboxApp:" + token;
+</script>
