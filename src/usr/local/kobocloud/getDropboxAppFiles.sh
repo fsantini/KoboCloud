@@ -12,10 +12,11 @@ grep -Eo 'ShmodelFolderEntriesPrefetch.*' |
 grep -Eo 'https?://www.dropbox.com/sh/[^\"]*' | # find links
 sort -u | # remove duplicates
 
-$CURL -k --silent -X POST https://api.dropboxapi.com/2/files/list_folder \
+response=$($CURL -k --silent -X POST https://api.dropboxapi.com/2/files/list_folder \
     --header "Authorization: Bearer $token" \
     --header "Content-Type: application/json" \
-    --data '{"path": "","include_non_downloadable_files": false}' |
+    --data '{"path": "","include_non_downloadable_files": false}')
+echo "$response" |
 sed -e 's/^.*\[{//' -e 's/}\].*$//' -e 's/}, {/\n/g' |
 grep '".tag": "file"' | grep '"is_downloadable": true' |
 while read item
