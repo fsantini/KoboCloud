@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kobo Cloud Sync | KoboCloud</title>
+</head>
+
+<body>
+  <div class="container-lg px-3 my-5 markdown-body">
+
+    <h1>Kobo Cloud Sync</h1>
+    <p>Add the following line in the kobocloudrc file (click to copy):</p>
+
+    <pre id="token" onclick="copy()"></pre>
+  </div>
+</body>
+
+</html>
+
+<style>
+  div {
+    margin: auto;
+    max-width: fit-content;
+  }
+</style>
+<script>
+  let token = new URLSearchParams(
+    window.location.hash.substr(1) // skip the first char (#)
+  ).get('access_token')
+  let pre = document.getElementById("token")
+  pre.innerText = "DropboxApp:" + token;
+  let copy = () => {
+    navigator.clipboard.writeText(pre.innerText);
+    let alert = document.createElement("p");
+    alert.innerHTML = "Copied!"
+    pre.parentNode.insertBefore(alert, pre.nextSibling);
+    setTimeout(() => {
+      alert.parentNode.removeChild(alert);
+    }, 1000);
+  }
+</script>

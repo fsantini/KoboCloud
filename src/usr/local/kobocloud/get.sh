@@ -46,6 +46,9 @@ while read url || [ -n "$url" ]; do
     echo "Getting $url"
     if echo $url | grep -q '^https*://www.dropbox.com'; then # dropbox link?
       $KC_HOME/getDropboxFiles.sh "$url" "$Lib"
+    elif echo $url | grep -q '^DropboxApp:'; then # dropbox token
+      token=`echo $url | sed -e 's/^DropboxApp://' -e 's/[[:space:]]*$//'`
+      $KC_HOME/getDropboxAppFiles.sh "$token" "$Lib"
     elif echo $url | grep -q '^https*://filedn.com'; then
       $KC_HOME/getpCloudFiles.sh "$url" "$Lib"
     elif echo $url | grep -q '^https*://[^/]*pcloud'; then

@@ -11,6 +11,7 @@ fi
 linkLine="$1"
 localFile="$2"
 user="$3"
+dropboxPath="$4"
 outputFileTmp="/tmp/kobo-remote-file-tmp.log"
 
 # add the epub extension to kepub files
@@ -28,9 +29,13 @@ if [ ! -z "$user" ] && [ "$user" != "-" ]; then
     curlCommand="$curlCommand -u $user: "
 fi
 
-echo "Download: "$curlCommand -k --silent -C - -L --create-dirs -o "$localFile" "$linkLine" -v
+if [ ! -z "$dropboxPath" ] && [ "$dropboxPath" != "-" ]; then
+    curlCommand="$CURL -X POST --header \"Authorization: Bearer $user\" --header \"Dropbox-API-Arg: {\\\"path\\\": \\\"$dropboxPath\\\"}\""
+fi
 
-$curlCommand -k --silent -C - -L --create-dirs -o "$localFile" "$linkLine" -v 2>$outputFileTmp
+echo "Download:" $curlCommand -k --silent -C - -L --create-dirs -o \"$localFile\" \"$linkLine\" -v
+
+eval $curlCommand -k --silent -C - -L --create-dirs -o \"$localFile\" \"$linkLine\" -v 2>$outputFileTmp
 status=$?
 echo "Status: $status"
 echo "Output: "
@@ -53,7 +58,7 @@ if echo "$statusCode" | grep -q "50.*"; then
     if [ $errorResume ] && [ "$retry" = "TRUE" ]
     then
         echo "Can't resume. Checking size"
-        contentLength=`$curlCommand -k -sLI "$linkLine" | grep -i 'Content-Length' | sed 's/.*:\s*\([0-9]*\).*/\1/'`
+        contentLength=$(eval $curlCommand -k -sLI "$linkLine" | grep -i 'Content-Length' | sed 's/.*:\s*\([0-9]*\).*/\1/')
         existingLength=`stat --printf="%s" "$localFile"`
         echo "Remote length: $contentLength"
         echo "Local length: $existingLength"

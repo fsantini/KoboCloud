@@ -3,7 +3,7 @@ A set of scripts to synchronize a kobo reader with popular cloud services.
 
 The following cloud services are supported:
 
-- Dropbox
+- Dropbox (two methods)
 - Google Drive
 - NextCloud/OwnCloud
 - pCloud
@@ -47,13 +47,23 @@ Some important advice:
 - **no subdirectories** are supported at the moment, your books must be all in the same directories that you are sharing
 - **restart your Kobo** after any kobocloudrc changes to to make them effective
 
-### Dropbox
+### Dropbox public folder (limited)
 
-To add a Dropbox link:
+To add a Dropbox public link:
 
 - Open your dropbox in a browser
 - Select the folder that you want to share and click "Share" and "Send link"
 - Copy the link that appears into the kobocloudrc file
+
+Note: this method does not work for folders with more than ~30 books, see https://github.com/fsantini/KoboCloud/issues/123.
+
+### Dropbox private folder
+
+This method will create a folder `/Applications/Kobo Cloud Sync` in your Dropbox and sync with it.
+
+- Open this [link](https://www.dropbox.com/oauth2/authorize?client_id=5oyw72cfwcp352f&response_type=token&redirect_uri=https://louisabraham.github.io/KoboCloud)
+- Copy the line starting with `DropboxApp:`
+- Add it to your `kobocloudrc` file
 
 ### Google Drive
 
