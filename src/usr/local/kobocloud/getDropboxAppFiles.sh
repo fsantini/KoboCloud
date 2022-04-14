@@ -1,10 +1,17 @@
 #!/bin/sh
 
-token="$1"
-outDir="$2"
+client_id="$1"
+refresh_token="$2"
+outDir="$3"
 
 #load config
 . $(dirname $0)/config.sh
+
+token=`$CURL -k --silent https://api.dropbox.com/oauth2/token \
+    -d grant_type=refresh_token \
+    -d client_id=$client_id \
+    -d refresh_token=$refresh_token |
+    sed 's/.*"access_token": "\([^"]*\)", ".*/\1/'`
 
 # get directory listing
 response=$($CURL -k --silent -X POST https://api.dropboxapi.com/2/files/list_folder \
