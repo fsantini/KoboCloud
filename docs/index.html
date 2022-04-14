@@ -12,9 +12,9 @@
   <div class="container-lg px-3 my-5 markdown-body">
 
     <h1>Kobo Cloud Sync</h1>
-    <p>Add the following line in the kobocloudrc file (click to copy):</p>
-
-    <pre id="token" onclick="copy()"></pre>
+    <p>Paste the following command in your terminal (click to copy):</p>
+    <code id="command" onclick="copy()"></code>
+    <p>Then add the line starting with <code>DropboxApp:</code> to your kobocloudrc file.</p>
   </div>
 </body>
 
@@ -23,20 +23,30 @@
 <style>
   div {
     margin: auto;
-    max-width: fit-content;
+    max-width: 50%;
   }
 </style>
 <script>
-  let token = new URLSearchParams(
-    window.location.hash.substr(1) // skip the first char (#)
-  ).get('access_token')
-  let pre = document.getElementById("token")
-  pre.innerText = "DropboxApp:" + token;
+  let url = "https://louisabraham.github.io/KoboCloud/"//window.location.origin + window.location.pathname;
+  let client_id = "5oyw72cfwcp352f";
+  let code = new URLSearchParams(
+    window.location.search.substr(1) // skip the first char (#)
+  ).get('code')
+  let out = document.getElementById("command")
+  let command = `curl -s https://api.dropbox.com/oauth2/token \
+-d grant_type=authorization_code \
+-d client_id=${client_id} \
+-d redirect_uri=${url} \
+-d code_verifier=0000000000000000000000000000000000000000000 \
+-d code=${code} | sed 's/.*"refresh_token": "\\([^"]*\\)", ".*/\\n\
+Add this line to your kobocloudrc file:\\n\\nDropboxApp:${client_id}:\\1\\n\\n/'`;
+
+  out.innerText = command;
   let copy = () => {
-    navigator.clipboard.writeText(pre.innerText);
+    navigator.clipboard.writeText(out.innerText);
     let alert = document.createElement("p");
     alert.innerHTML = "Copied!"
-    pre.parentNode.insertBefore(alert, pre.nextSibling);
+    out.parentNode.insertBefore(alert, out.nextSibling);
     setTimeout(() => {
       alert.parentNode.removeChild(alert);
     }, 1000);
