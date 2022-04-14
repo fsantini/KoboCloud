@@ -61,8 +61,9 @@ Note: this method does not work for folders with more than ~30 books, see https:
 
 This method will create a folder `/Applications/Kobo Cloud Sync` in your Dropbox and sync with it.
 
-- Open this [link](https://www.dropbox.com/oauth2/authorize?client_id=5oyw72cfwcp352f&response_type=token&redirect_uri=https://louisabraham.github.io/KoboCloud)
-- Copy the line starting with `DropboxApp:`
+- Open this [link](https://www.dropbox.com/oauth2/authorize?response_type=code&token_access_type=offline&client_id=5oyw72cfwcp352f&code_challenge_method=plain&code_challenge=0000000000000000000000000000000000000000000&redirect_uri=https://louisabraham.github.io/KoboCloud/)
+- Paste the command in a terminal
+- Copy the line starting with `DropboxApp:` from your terminal
 - Add it to your `kobocloudrc` file
 
 ### Google Drive
