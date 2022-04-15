@@ -24,7 +24,7 @@ grep '".tag": "file"' | grep '"is_downloadable": true' |
 while read item
 do
   outFileName=`echo $item | sed 's/.*"name": "\([^"]*\)", ".*/\1/'`
-  remotePath=`echo $item | sed 's/.*"path_lower": "\([^"]*\)", ".*/\1/'`
+  remotePath=`echo $item | sed 's/.*"id": "\([^"]*\)", ".*/\1/'`
   localFile="$outDir/$outFileName"
   $KC_HOME/getRemoteFile.sh "https://content.dropboxapi.com/2/files/download" "$localFile" "$token" "$remotePath"
   if [ $? -ne 0 ] ; then
