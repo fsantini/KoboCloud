@@ -23,7 +23,8 @@ sed -e 's/^.*\[{//' -e 's/}\].*$//' -e 's/}, {/\n/g' |
 grep '".tag": "file"' | grep '"is_downloadable": true' |
 while read item
 do
-  outFileName=`echo $item | sed 's/.*"name": "\([^"]*\)", ".*/\1/'`
+  outFileName=`echo $item | sed -e 's/.*"name": "\([^"]*\)", ".*/\1/'`
+  outFileName=`echo $outFileName | sed -e 's/\\u00e0/à/' -e 's/\\u00e0/â/' -e 's/\\u00e8/è/' -e 's/\\u00e9/é/' -e 's/\\u00f8/ø/' -e 's/\\u0153/œ/'`
   remotePath=`echo $item | sed 's/.*"id": "\([^"]*\)", ".*/\1/'`
   localFile="$outDir/$outFileName"
   $KC_HOME/getRemoteFile.sh "https://content.dropboxapi.com/2/files/download" "$localFile" "$token" "$remotePath"
