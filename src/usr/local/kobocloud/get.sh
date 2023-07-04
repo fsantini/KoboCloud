@@ -51,9 +51,7 @@ while read url || [ -n "$url" ]; do
       client_id=`echo $auth | sed 's/:.*//'`
       refresh_token=`echo $auth | sed 's/.*://'`
       $KC_HOME/getDropboxAppFiles.sh "$client_id" "$refresh_token" "$Lib"
-    elif echo $url | grep -q '^https*://filedn.com'; then
-      $KC_HOME/getpCloudFiles.sh "$url" "$Lib"
-    elif echo $url | grep -q '^https*://[^/]*pcloud'; then
+    elif echo $url | grep -q '^https*://filedn.com\|^https*://filedn.eu\|^https*://[^/]*pcloud'; then
       $KC_HOME/getpCloudFiles.sh "$url" "$Lib"
     elif echo $url | grep -q '^https*://drive.google.com'; then
       $KC_HOME/getGDriveFiles.sh "$url" "$Lib"
