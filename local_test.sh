@@ -13,6 +13,7 @@ then
 elif [ "$SERVICE" = "pcloud" ]
 then
     URL='https://u.pcloud.link/publink/show?code=kZBWSsXZPYXgN8YJtmjGSKNCQERxG80M2WiX'
+    #URL='https://filedn.eu/lIJBHCuls5a4Nhjv5GJErfV'
 elif [ "$SERVICE" = "box" ]
 then
     URL='https://app.box.com/s/1y5e82xbyksuywamih7vu08yaiefqm65'
