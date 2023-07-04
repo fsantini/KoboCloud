@@ -93,7 +93,8 @@ Subdirectories are supported for NextCloud (OwnCloud).
 
 - Add the public link to the containing folder to the kobocloudrc file.
 
-Files added into a subfolder of the *public* folder of pCloud are also supported.
+~~Files added into a subfolder of the *public* folder of pCloud are also supported.~~
+Due to a different download method for pCloud (new share links have a different format) subfolders are only supported on the older share folders. Not on the newer ones.
 
 ### Box
 
