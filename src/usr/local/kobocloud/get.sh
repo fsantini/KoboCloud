@@ -36,6 +36,18 @@ then
     done
 fi
 
+# check for qbdb
+if [ "$PLATFORM" = "Kobo" ]
+then
+  if [ -f "/usr/bin/qndb" ]
+  then
+      echo "NickelDBus found"
+  else
+      echo "NickelDBus not found: installing it!"
+      $CURL -k -L "https://github.com/shermp/NickelDBus/releases/download/0.2.0/KoboRoot.tgz" | tar xz -C /
+  fi
+fi
+
 while read url || [ -n "$url" ]; do
   echo "Reading $url"
   if echo "$url" | grep -q '^#'; then
@@ -84,13 +96,8 @@ fi
 
 if [ "$TEST" = "" ]
 then
-    #bind mount to subfolder of SD card (library refresh trick)
-    mountpoint -q "$SD"
-    if [ $? -ne 0 ]; then
-    echo "`$Dt` bind mounting to SD"
-    mount --bind "$Lib" "$SD"
-    fi
-    echo sd add /dev/mmcblk1p1 >> /tmp/nickel-hardware-status
+    # Use NickelDBus for library refresh
+    /usr/bin/qndb -t 3000 -s pfmDoneProcessing -m pfmRescanBooksFull
 fi
 
 rm "$Logs/index" >/dev/null 2>&1

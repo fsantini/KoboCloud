@@ -14,11 +14,6 @@ jobs:
           with:
             path: repo
             
-        - name: Test Dropbox
-          run: |
-            cd repo
-            ./local_test.sh dropbox
-            
         - name: Test pcloud
           run: |
             cd repo

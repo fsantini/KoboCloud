@@ -3,7 +3,7 @@ A set of scripts to synchronize a kobo reader with popular cloud services.
 
 The following cloud services are supported:
 
-- Dropbox (two methods)
+- Dropbox
 - Google Drive
 - NextCloud/OwnCloud
 - pCloud
@@ -47,15 +47,9 @@ Some important advice:
 - **no subdirectories** are supported at the moment, your books must be all in the same directories that you are sharing
 - **restart your Kobo** after any kobocloudrc changes to to make them effective
 
-### Dropbox public folder (limited)
+### Dropbox public folder
 
-To add a Dropbox public link:
-
-- Open your dropbox in a browser
-- Select the folder that you want to share and click "Share" and "Send link"
-- Copy the link that appears into the kobocloudrc file
-
-Note: this method does not work for folders with more than ~30 books, see https://github.com/fsantini/KoboCloud/issues/123.
+Due to a change in Dropbox website, the public folder method does not work anymore.
 
 ### Dropbox private folder
 
@@ -153,7 +147,7 @@ KoboCloud keeps a log of each session in the .add/kobocloud/get.log file. If som
 
 ## Known issues
 
-* No subdirectories are supported
+* Subfolder support is limited.
 * Some versions of Kobo make the same book appear twice in the library. This is because it scans the internal directory where the files are saved as well as the "official" folders. To solve this problem find the `Kobo eReader.conf` file inside your `.kobo/Kobo` folder and make sure the following line (which prevents the syncing of dotfiles and dotfolders) is set in the `[FeatureSettings]` section:
 ```
   ExcludeSyncFolders=\\.(?!add|adobe).*?
@@ -162,6 +156,7 @@ KoboCloud keeps a log of each session in the .add/kobocloud/get.log file. If som
 
 ## Acknowledgment
 
+KoboCloud installs [NickelDBus](https://github.com/shermp/NickelDBus) if not present. Thanks to shermp for providing this!
 Thanks to the defunct SendToKobo service for the inspiration of the project and for the basis of the scripts.
 Curl for Kobo was downloaded from here: https://www.mobileread.com/forums/showthread.php?p=3734553 . Thanks to NiLuJe for providing it!
 Thanks to Christoph Burschka for the help in updating this tool to the recent versions of kobo and nextcloud.
