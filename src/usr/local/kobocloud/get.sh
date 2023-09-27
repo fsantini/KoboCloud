@@ -44,27 +44,39 @@ then
       echo "NickelDBus found"
   else
       echo "NickelDBus not found: installing it!"
-      $CURL -k -L "https://github.com/shermp/NickelDBus/releases/download/0.2.0/KoboRoot.tgz" | tar xz -C /
+      wget "https://github.com/shermp/NickelDBus/releases/download/0.2.0/KoboRoot.tgz" -O - | tar xz -C /
+  fi
+  if [ -f "${RCLONE}" ]
+  then
+      echo "rclone found"
+  else
+      echo "rclone not found: installing it!"
+      mkdir -p "${RCLONEDIR}"
+      rcloneTemp="${RCLONEDIR}/rclone.tmp.zip"
+      rm -f "${rcloneTemp}"
+      wget "https://github.com/rclone/rclone/releases/download/v1.64.0/rclone-v1.64.0-linux-arm-v7.zip" -O "${rcloneTemp}"
+      unzip -p "${rcloneTemp}" rclone-v1.64.0-linux-arm-v7/rclone > ${RCLONE}
+      rm -f "${rcloneTemp}"
   fi
 fi
 
 while read url || [ -n "$url" ]; do
-  echo "Syncing $url"
   if echo "$url" | grep -q '^#'; then
-    echo "Comment found"
+    continue
   elif echo "$url" | grep -q "^REMOVE_DELETED$"; then
 	  echo "Will delete files no longer present on remote"
-  else
+  elif [ -n "$url" ]; then
     echo "Getting $url"    
+    command=""
     if grep -q "^REMOVE_DELETED$" $UserConfig; then    
-      echo ${RCLONE} sync -v --config ${RCloneConfig} $url "$Lib"
       # Remove deleted, do a sync.
-      ${RCLONE} sync -v --config ${RCloneConfig} $url "$Lib" 
+      command="sync"
     else
-      echo ${RCLONE} copy -v --config ${RCloneConfig} $url "$Lib"
       # Don't remove deleted, do a copy.
-      ${RCLONE} copy -v --config ${RCloneConfig} $url "$Lib"
+      command="copy"
     fi
+    echo ${RCLONE} ${command} --no-check-certificate -v --config ${RCloneConfig} \"$url\" \"$Lib\"
+    ${RCLONE} ${command} --no-check-certificate -v --config ${RCloneConfig} "$url" "$Lib"
   fi
 done < $UserConfig
 

@@ -48,7 +48,7 @@ After the installation process:
 my_google_drive:foldername
 
 # Dropbox:
-my_dropbox:other/folder/name/'folder with spaces'
+my_dropbox:other/folder/name
 ```
 
 rclone supports many, many other remote types. See https://rclone.org/docs/ for the full list.

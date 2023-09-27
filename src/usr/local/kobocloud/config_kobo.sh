@@ -5,5 +5,6 @@ SD=/mnt/sd/kobocloud
 UserConfig=/mnt/onboard/.add/kobocloud/kobocloudrc
 RCloneConfig=/mnt/onboard/.add/kobocloud/rclone.conf
 Dt="date +%Y-%m-%d_%H:%M:%S"
-RCLONE="$KC_HOME/rclone --no-check-certificate "
+RCLONEDIR="/mnt/onboard/.add/kobocloud/bin/"
+RCLONE="${RCLONEDIR}/rclone"
 PLATFORM=Kobo
