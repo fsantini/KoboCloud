@@ -57,13 +57,13 @@ while read url || [ -n "$url" ]; do
   else
     echo "Getting $url"    
     if grep -q "^REMOVE_DELETED$" $UserConfig; then    
-      echo ${RCLONE} sync --config ${RCloneConfig} $url "$Lib"
+      echo ${RCLONE} sync -v --config ${RCloneConfig} $url "$Lib"
       # Remove deleted, do a sync.
-      ${RCLONE} sync --config ${RCloneConfig} $url "$Lib" 
+      ${RCLONE} sync -v --config ${RCloneConfig} $url "$Lib" 
     else
-      echo ${RCLONE} copy --config ${RCloneConfig} $url "$Lib"
+      echo ${RCLONE} copy -v --config ${RCloneConfig} $url "$Lib"
       # Don't remove deleted, do a copy.
-      ${RCLONE} copy --config ${RCloneConfig} $url "$Lib"
+      ${RCLONE} copy -v --config ${RCloneConfig} $url "$Lib"
     fi
   fi
 done < $UserConfig
