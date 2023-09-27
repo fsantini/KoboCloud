@@ -53,46 +53,18 @@ while read url || [ -n "$url" ]; do
   if echo "$url" | grep -q '^#'; then
     echo "Comment found"
   elif echo "$url" | grep -q "^REMOVE_DELETED$"; then
-	echo "Will match remote"
+	  echo "Will match remote"
   else
-    echo "Getting $url"
-    if echo $url | grep -q '^https*://www.dropbox.com'; then # dropbox link?
-      $KC_HOME/getDropboxFiles.sh "$url" "$Lib"
-    elif echo $url | grep -q '^DropboxApp:'; then # dropbox token
-      auth=`echo $url | sed -e 's/^DropboxApp://' -e 's/[[:space:]]*$//'`
-      client_id=`echo $auth | sed 's/:.*//'`
-      refresh_token=`echo $auth | sed 's/.*://'`
-      $KC_HOME/getDropboxAppFiles.sh "$client_id" "$refresh_token" "$Lib"
-    elif echo $url | grep -q '^https*://filedn.com\|^https*://filedn.eu\|^https*://[^/]*pcloud'; then
-      $KC_HOME/getpCloudFiles.sh "$url" "$Lib"
-    elif echo $url | grep -q '^https*://drive.google.com'; then
-      $KC_HOME/getGDriveFiles.sh "$url" "$Lib"
-    elif echo $url | grep -q '^https*://app.box.com'; then
-      $KC_HOME/getBoxFiles.sh "$url" "$Lib"
+    echo "Getting $url"    
+    if grep -q "^REMOVE_DELETED$" $UserConfig; then    
+      # Remove deleted, do a sync.
+      ${RCLONE} sync --config ${RCloneConfig} $url "$Lib" 
     else
-      $KC_HOME/getOwncloudFiles.sh "$url" "$Lib"
+      # Don't remove deleted, do a copy.
+      ${RCLONE} copy --config ${RCloneConfig} $url "$Lib"
     fi
   fi
 done < $UserConfig
-
-recursiveUpdateFiles() {
-for item in *; do
-	if [ -d "$item" ]; then 
-		(cd -- "$item" && recursiveUpdateFiles)
-	elif grep -Fq "$item" "$Lib/filesList.log"; then
-		echo "$item found"
-	else
-		echo "$item not found, deleting"
-		rm "$item"
-	fi
-done
-}
-
-if grep -q "^REMOVE_DELETED$" $UserConfig; then
-	cd "$Lib"
-	echo "Matching remote server"
-	recursiveUpdateFiles
-fi
 
 if [ "$TEST" = "" ]
 then
