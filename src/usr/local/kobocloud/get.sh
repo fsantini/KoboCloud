@@ -49,17 +49,19 @@ then
 fi
 
 while read url || [ -n "$url" ]; do
-  echo "Reading $url"
+  echo "Syncing $url"
   if echo "$url" | grep -q '^#'; then
     echo "Comment found"
   elif echo "$url" | grep -q "^REMOVE_DELETED$"; then
-	  echo "Will match remote"
+	  echo "Will delete files no longer present on remote"
   else
     echo "Getting $url"    
     if grep -q "^REMOVE_DELETED$" $UserConfig; then    
+      echo ${RCLONE} sync --config ${RCloneConfig} $url "$Lib"
       # Remove deleted, do a sync.
       ${RCLONE} sync --config ${RCloneConfig} $url "$Lib" 
     else
+      echo ${RCLONE} copy --config ${RCloneConfig} $url "$Lib"
       # Don't remove deleted, do a copy.
       ${RCLONE} copy --config ${RCloneConfig} $url "$Lib"
     fi
