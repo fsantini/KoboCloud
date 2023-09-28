@@ -75,8 +75,11 @@ while read url || [ -n "$url" ]; do
       # Don't remove deleted, do a copy.
       command="copy"
     fi
-    echo ${RCLONE} ${command} --no-check-certificate -v --config ${RCloneConfig} \"$url\" \"$Lib\"
-    ${RCLONE} ${command} --no-check-certificate -v --config ${RCloneConfig} "$url" "$Lib"
+    remote=$(echo "$url" | cut -d: -f1)
+    dir="$Lib/$remote/"
+    mkdir -p "$dir"
+    echo ${RCLONE} ${command} --no-check-certificate -v --config ${RCloneConfig} \"$url\" \"$dir\"
+    ${RCLONE} ${command} --no-check-certificate -v --config ${RCloneConfig} "$url" "$dir"
   fi
 done < $UserConfig
 
