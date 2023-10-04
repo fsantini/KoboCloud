@@ -1,13 +1,16 @@
 # KoboCloud
-A set of scripts to synchronize a kobo reader with popular cloud services.
+A set of scripts to synchronize a kobo reader with popular cloud services, using [rclone](https://rclone.org).
 
-The following cloud services are supported:
+Some example supported cloud services:
 
 - Dropbox
 - Google Drive
 - NextCloud/OwnCloud
 - pCloud
 - Box
+
+There are many more - see https://rclone.org/docs/ for the full list.
+
 
 ## <a name="installation"></a>Installation
 
@@ -27,76 +30,28 @@ Copy it into the Kobo device:
 
 After the installation process:
 
-- Plug your Kobo back into the computer
-- Open the configuration file located at `.add/kobocloud/kobocloudrc`
-- Add the links to the cloud services (one per line)
+1. [Download](https://rclone.org/downloads/) rclone to your computer
+2. Run `rclone config` to create a config file and add your remote Cloud services ([detailed instructions](https://rclone.org/remote_setup/#configuring-by-copying-the-config-file)).
+    - You can add as many remote Cloud services as you need, but note the name you give each remote.
+3. Plug your Kobo back into the computer
+4. Copy the rclone config file to `.add/kobocloud/rclone.conf`
+    - Run `rclone config file` on your computer to find the file.
+5. Edit the configuration file located at `.add/kobocloud/kobocloudrc`, and add each remote:directory pair (one per line).
 
-Configuration example:
+## Configuration example
+
+(Note: this is after going through the configuraton steps above)
 
 ```
 # Lines starting with '#' are ignored
 # Google drive:
-https://drive.google.com/drive/folders/<ID>?usp=sharing
+my_google_drive:foldername
+
 # Dropbox:
-https://www.dropbox.com/sh/pgSHORTENED
-REMOVE_DELETED
+my_dropbox:other/folder/name
 ```
 
-Some important advice:
-- make sure that there are **no spaces** before or after the link on the line
-- **no subdirectories** are supported at the moment, your books must be all in the same directories that you are sharing
-- **restart your Kobo** after any kobocloudrc changes to to make them effective
-
-### Dropbox public folder
-
-Due to a change in Dropbox website, the public folder method does not work anymore.
-
-### Dropbox private folder
-
-This method will create a folder `/Applications/Kobo Cloud Sync` in your Dropbox and sync with it.
-
-- Open this [link](https://www.dropbox.com/oauth2/authorize?response_type=code&token_access_type=offline&client_id=5oyw72cfwcp352f&code_challenge_method=plain&code_challenge=0000000000000000000000000000000000000000000&redirect_uri=https://louisabraham.github.io/KoboCloud/)
-- Paste the command in a terminal
-- Copy the line starting with `DropboxApp:` from your terminal
-- Add it to your `kobocloudrc` file
-
-### Google Drive
-
-- Use the "link sharing" option on a Google Drive folder
-- Select the option "anyone with the link can view."
-- Copy-paste the link in the kobocloudrc file
-
-Subdirectories are supported for Google Drive.
-**Important**: Folders with many files might not work.
-
-### Nextcloud (Owncloud)
-
-To add a NextCloud (ownCloud) link:
-
-- Open your nextcloud website in a browser
-- Select the folder that you want to share
-- Click on "Share" and select "Share with link"
-- Copy the link into the kobocloudrc file
-
-Please note that you need a recent NextCloud (OwnCloud) version.
-Subdirectories are supported for NextCloud (OwnCloud).
-
-**Important**: Webdav for public folders should be enabled, see: https://docs.nextcloud.com/server/20/user_manual/en/files/access_webdav.html#accessing-public-shares-over-webdav for more info.
-
-### pCloud
-
-- Add the public link to the containing folder to the kobocloudrc file.
-
-~~Files added into a subfolder of the *public* folder of pCloud are also supported.~~
-Due to a different download method for pCloud (new share links have a different format) subfolders are only supported on the older share folders. Not on the newer ones.
-
-### Box
-
-- On a Box folder, click "Create link" in the sidebar and enable "Share Link"
-- Select the options "People with the link" and "can view and download"
-- Copy-paste the link in the kobocloudrc file
-
-Please note that, even though the script supports folders where the file list has multiple pages, having a list with many pages might not work.
+rclone supports many, many other remote types. See https://rclone.org/docs/ for the full list.
 
 ### Matching remote server
 To delete files from library when they are no longer in the remote server:
@@ -105,6 +60,8 @@ To delete files from library when they are no longer in the remote server:
 - Restart your Kobo.
 
 The next time the Kobo is connected to the internet, it will delete any files (it will not delete directories) that are not in the remote server.
+
+(This works by running `rclone sync` instead of `rclone copy`),
 
 
 ## Usage
@@ -147,7 +104,6 @@ KoboCloud keeps a log of each session in the .add/kobocloud/get.log file. If som
 
 ## Known issues
 
-* Subfolder support is limited.
 * Some versions of Kobo make the same book appear twice in the library. This is because it scans the internal directory where the files are saved as well as the "official" folders. To solve this problem find the `Kobo eReader.conf` file inside your `.kobo/Kobo` folder and make sure the following line (which prevents the syncing of dotfiles and dotfolders) is set in the `[FeatureSettings]` section:
 ```
   ExcludeSyncFolders=\\.(?!add|adobe).*?

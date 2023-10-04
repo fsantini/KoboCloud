@@ -11,7 +11,7 @@ if [ ! -e $UserConfig ]; then
   if [ -e $ConfigFile ]; then
     cp $ConfigFile $UserConfig
   else
-    echo "# Add your URLs to this file" > $UserConfig
+    echo "# Add your rclone remote:folder/on/remote pairs to this file" > $UserConfig
     echo "# Remove the # from the following line to uninstall KoboCloud" >> $UserConfig
     echo "#UNINSTALL" >> $UserConfig
   fi
