@@ -44,7 +44,7 @@ do
     fileName=`echo $fileInfo | sed -n 's/\(.*\)|.*/\1/p'` # extract the file name
     echo "File code: $fileCode"
     echo "File name: $fileName"
-    linkLine="https://drive.google.com/uc?id=$fileCode&export=download"
+    linkLine="https://drive.google.com/uc?id=$fileCode&export=download&confirm=t"
     outFileName=`/bin/echo -e "$fileName" | tr ' ' '_' `
     localFile="$outDir/$outFileName"
 
