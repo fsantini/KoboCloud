@@ -33,9 +33,9 @@ if [ ! -z "$dropboxPath" ] && [ "$dropboxPath" != "-" ]; then
     curlCommand="$CURL -X POST --header \"Authorization: Bearer $user\" --header \"Dropbox-API-Arg: {\\\"path\\\": \\\"$dropboxPath\\\"}\""
 fi
 
-echo "Download:" $curlCommand -k --silent -C - -L --create-dirs -o \"$localFile\" \"$linkLine\" -v
+echo "Download:" $curlCommand -k --silent -C - -L --create-dirs --remote-time -o \"$localFile\" \"$linkLine\" -v
 
-eval $curlCommand -k --silent -C - -L --create-dirs -o \"$localFile\" \"$linkLine\" -v 2>$outputFileTmp
+eval $curlCommand -k --silent -C - -L --create-dirs --remote-time -o \"$localFile\" \"$linkLine\" -v 2>$outputFileTmp
 status=$?
 echo "Status: $status"
 echo "Output: "
