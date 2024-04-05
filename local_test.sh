@@ -3,6 +3,7 @@
 SERVICE=$1
 TEST_DELETED=$2
 
+
 TestFiles=("ulysses.epub" "01/ulysses.epub" "01/ulysses01.epub" "02/ulysses.epub" "02/ulysses02.epub")
 sha1=d07c5da10d4666766d1b796ba420cffca0ac440c
 TestSubdirs=false
@@ -109,6 +110,9 @@ do
         exit 1
     fi
 done
+
+#relaunch sync to test when no change has to be made
+src/usr/local/kobocloud/get.sh TEST
 
 # if we reached here, we are good
 exit 0

@@ -48,6 +48,10 @@ then
   fi
 fi
 
+#list file in lib dir before sync
+lib_list_before=`ls -lnR --full-time "$Lib"`
+echo "$lib_list_before"
+
 while read url || [ -n "$url" ]; do
   echo "Reading $url"
   if echo "$url" | grep -q '^#'; then
@@ -94,10 +98,23 @@ if grep -q "^REMOVE_DELETED$" $UserConfig; then
 	recursiveUpdateFiles
 fi
 
-if [ "$TEST" = "" ]
+#list file in lib dir after sync
+lib_list_after=`ls -lnR --full-time "$Lib"`
+echo "$lib_list_after"
+
+#compare filelist before and after
+if [ "$lib_list_after" = "$lib_list_before" ]
 then
-    # Use NickelDBus for library refresh
-    /usr/bin/qndb -t 3000 -s pfmDoneProcessing -m pfmRescanBooksFull
+  echo "No Library Change. skipping rescan"
+else
+  echo "Library has changed, rescan needed"
+
+
+  if [ "$TEST" = "" ]
+  then
+      # Use NickelDBus for library refresh
+      /usr/bin/qndb -t 3000 -s pfmDoneProcessing -m pfmRescanBooksFull
+  fi
 fi
 
 rm "$Logs/index" >/dev/null 2>&1
