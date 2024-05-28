@@ -81,6 +81,9 @@ done < $UserConfig
 
 recursiveUpdateFiles() {
 for item in *; do
+  if [ "$item" = "*" ]; then
+    continue
+  fi
 	if [ -d "$item" ]; then 
 		(cd -- "$item" && recursiveUpdateFiles)
 	elif grep -Fq "$item" "$Lib/filesList.log"; then
