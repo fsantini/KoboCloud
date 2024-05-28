@@ -29,6 +29,8 @@ do
   if [ -z "$existingFileSize" ]; then
     existingFileSize=0
   fi
+  remotePath=`echo $item | sed 's/.*"id": "\([^"]*\)", ".*/\1/'`
+  localFile="$outDir/$outFileName"
 
   echo "outFileName: $outFileName"
   echo "outFileSize: $outFileSize"
@@ -38,11 +40,14 @@ do
     rm "$outDir/$outFileName"
   fi
   if [ "$existingFileSize" -eq "$outFileSize" ]; then
+    echo "File $outFileName is up to date"
+    if grep -q "^REMOVE_DELETED" $UserConfig; then
+      echo "$localFile" >> "$Lib/filesList.log"
+      echo "Appended $localFile to filesList"
+    fi
     continue
   fi
-  
-  remotePath=`echo $item | sed 's/.*"id": "\([^"]*\)", ".*/\1/'`
-  localFile="$outDir/$outFileName"
+
   $KC_HOME/getRemoteFile.sh "https://content.dropboxapi.com/2/files/download" "$localFile" "$token" "$remotePath"
   if [ $? -ne 0 ] ; then
       echo "Having problems contacting Dropbox. Try again in a couple of minutes."
