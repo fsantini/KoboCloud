@@ -150,7 +150,8 @@ KoboCloud keeps a log of each session in the .add/kobocloud/get.log file. If som
 * Subfolder support is limited.
 * Some versions of Kobo make the same book appear twice in the library. This is because it scans the internal directory where the files are saved as well as the "official" folders. To solve this problem find the `Kobo eReader.conf` file inside your `.kobo/Kobo` folder and make sure the following line (which prevents the syncing of dotfiles and dotfolders) is set in the `[FeatureSettings]` section:
 ```
-  ExcludeSyncFolders=\\.(?!add|adobe).*?
+[FeatureSettings]
+ExcludeSyncFolders=(\\.(?!kobo|adobe).+|([^.][^/]*/)+\\..+)
 ```
 
 
