@@ -81,7 +81,7 @@ To add a NextCloud (ownCloud) link:
 Please note that you need a recent NextCloud (OwnCloud) version.
 Subdirectories are supported for NextCloud (OwnCloud).
 
-**Important**: Webdav for public folders should be enabled, see: https://docs.nextcloud.com/server/20/user_manual/en/files/access_webdav.html#accessing-public-shares-over-webdav for more info.
+**Important**: Webdav for public folders should be enabled, see: https://docs.nextcloud.com/server/20/user_manual/en/files/access_webdav.html#accessing-public-shares-over-webdav for more info. You should also make sure that 'dav.propfind.depth_infinity' is set to 'true'. See: https://doc.owncloud.com/server/next/admin_manual/configuration/server/config_sample_php_parameters.html#enable-propfind-depth-infinity-requests.
 
 ### pCloud
 
