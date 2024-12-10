@@ -1,11 +1,16 @@
 #!/bin/sh
 
 retry="TRUE"
+curl_verbose="TRUE"
 
 if [ "$1" = "NORETRY" ]
 then
     retry="FALSE"
     shift 1
+fi
+
+if grep -q '^NO_CURL_VERBOSE$' $UserConfig; then
+    curl_verbose="FALSE"
 fi
 
 linkLine="$1"
@@ -38,8 +43,12 @@ echo "Download:" $curlCommand -k --silent -C - -L --create-dirs --remote-time -o
 eval $curlCommand -k --silent -C - -L --create-dirs --remote-time -o \"$localFile\" \"$linkLine\" -v 2>$outputFileTmp
 status=$?
 echo "Status: $status"
-echo "Output: "
-cat $outputFileTmp
+
+if [ "$curl_verbose" = "TRUE" ]
+then
+    echo "Output: "
+    cat $outputFileTmp
+fi
 
 statusCode=`grep 'HTTP/' "$outputFileTmp" | tail -n 1 | cut -d' ' -f3`
 grep -q "Cannot resume" "$outputFileTmp"
