@@ -2,6 +2,7 @@
 
 SERVICE=$1
 TEST_DELETED=$2
+NO_CURL_VERBOSE=$3
 
 
 TestFiles=("ulysses.epub" "01/ulysses.epub" "01/ulysses01.epub" "02/ulysses.epub" "02/ulysses02.epub")
@@ -79,6 +80,11 @@ then
     mkdir -p "$Lib/01"
     touch "$Lib/delete_me.epub"
     touch "$Lib/01/delete_me.epub"
+fi
+if [ "$NO_CURL_VERBOSE" = true ]
+then
+    echo "No verbose for curl"
+    echo "NO_CURL_VERBOSE" >> $UserConfig
 fi
 
 src/usr/local/kobocloud/get.sh TEST

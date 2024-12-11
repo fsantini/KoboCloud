@@ -5,7 +5,7 @@ TEST=$1
 
 #load config
 . $(dirname $0)/config.sh
-
+export UserConfig
 #check if Kobocloud contains the line "UNINSTALL"
 if grep -q '^UNINSTALL$' $UserConfig; then
     echo "Uninstalling KoboCloud!"
@@ -59,7 +59,9 @@ while read url || [ -n "$url" ]; do
   if echo "$url" | grep -q '^#'; then
     echo "Comment found"
   elif echo "$url" | grep -q "^REMOVE_DELETED$"; then
-	echo "Will match remote"
+	  echo "Will match remote"
+  elif echo "$url" | grep -q "^NO_CURL_VERBOSE$"; then
+	  echo "Will have no verbose for curl"
   else
     echo "Getting $url"
     if echo $url | grep -q '^https*://www.dropbox.com'; then # dropbox link?
