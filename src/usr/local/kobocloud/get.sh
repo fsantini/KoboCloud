@@ -49,8 +49,10 @@ then
 fi
 
 #list file in lib dir before sync
-lib_list_before=`ls -lnR --full-time "$Lib"`
+lib_list_before=`ls -lnR --full-time "$Lib" | grep -v -e ".*\.log$" -e "^total [0-9]\+"`
+echo "Current Library list"
 echo "$lib_list_before"
+
 
 while read url || [ -n "$url" ]; do
   echo "Reading $url"
@@ -102,7 +104,8 @@ if grep -q "^REMOVE_DELETED$" $UserConfig; then
 fi
 
 #list file in lib dir after sync
-lib_list_after=`ls -lnR --full-time "$Lib"`
+echo "New Library list"
+lib_list_after=`ls -lnR --full-time "$Lib" | grep -v -e ".*\.log$" -e "^total [0-9]\+"`
 echo "$lib_list_after"
 
 #compare filelist before and after
