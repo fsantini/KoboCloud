@@ -8,6 +8,7 @@ The following cloud services are supported:
 - NextCloud/OwnCloud
 - pCloud
 - Box
+- Yandex Disk
 
 ## <a name="installation"></a>Installation
 
@@ -97,6 +98,16 @@ Due to a different download method for pCloud (new share links have a different 
 - Copy-paste the link in the kobocloudrc file
 
 Please note that, even though the script supports folders where the file list has multiple pages, having a list with many pages might not work.
+
+### Yandex Disk
+
+- Open Yandex Disk website in a browser
+- Right-click to the folder you want to share
+- Select "Share" ("Поделиться")
+- Click to "Copy" ("Скопировать") in "Folder link" ("Ссылка на папку") window
+- Copy the link into the kobocloudrc file
+
+Subdirectories are supported for Yandex Disk.
 
 ### Matching remote server
 To delete files from library when they are no longer in the remote server:

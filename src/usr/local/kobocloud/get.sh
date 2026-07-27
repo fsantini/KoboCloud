@@ -77,6 +77,8 @@ while read url || [ -n "$url" ]; do
       $KC_HOME/getGDriveFiles.sh "$url" "$Lib"
     elif echo $url | grep -q '^https*://app.box.com'; then
       $KC_HOME/getBoxFiles.sh "$url" "$Lib"
+    elif echo $url | grep -q '^https*://disk.yandex.ru'; then
+      $KC_HOME/getYandexDiskFiles.sh "$url" "$Lib"
     else
       $KC_HOME/getOwncloudFiles.sh "$url" "$Lib"
     fi

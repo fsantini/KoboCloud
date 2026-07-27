@@ -54,3 +54,8 @@ jobs:
             cd repo
             ./local_test.sh gdrive true
             
+        - name: Test Yandex Disk + deletion
+          run: |
+            cd repo
+            ./local_test.sh yandexdisk true
+            
