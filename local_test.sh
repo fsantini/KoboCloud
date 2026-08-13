@@ -59,6 +59,11 @@ elif [ "$SERVICE" = "gdrive" ]
 then
     URL='https://drive.google.com/drive/folders/1Wi37shmjG56L1D8OSdIZstkUfnpTsdAp'
     TestSubdirs=true
+elif [ "$SERVICE" = "yandexdisk" ]
+then
+    sha1=313a35d6773fe6730af017fb004f553cc8aa5aae
+    URL='https://disk.yandex.ru/d/7cIY35f0yadujQ'
+    TestSubdirs=true
 else
     echo "Unknown service"
     exit 1
