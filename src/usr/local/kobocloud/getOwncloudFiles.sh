@@ -27,11 +27,25 @@ echo "davServer: $davServer"
 echo "davServerWithOwncloudPath: $davServerWithOwncloudPath"
 
 # get directory listing
-$KC_HOME/getOwncloudList.sh $shareID $davServerWithOwncloudPath |
+#$KC_HOME/getOwncloudList.sh $shareID $davServerWithOwncloudPath |
+
+nextCloud=false
+fileList=$($KC_HOME/getOwncloudList.sh $shareID $davServerWithOwncloudPath)
+
+if [ -z "$fileList" ]; then
+  fileList=$($KC_HOME/getNextcloudList.sh $shareID $davServerWithOwncloudPath)
+  nextCloud=true
+fi
+
+echo "$fileList" | 
 while read relativeLink
 do
   # process line 
-  outFileName=`echo $relativeLink | sed 's/.*public.php\/webdav\///' | percentDecodeFileName`
+  if [ $nextcloud ] ; then
+    outFileName=`echo $relativeLink | sed 's/.*public.php\/dav\/files\/$shareID\///' | percentDecodeFileName`
+  else
+    outFileName=`echo $relativeLink | sed 's/.*public.php\/webdav\///' | percentDecodeFileName`
+  fi
   linkLine=$davServer$relativeLink
   localFile="$outDir/$outFileName"
   # get remote file
